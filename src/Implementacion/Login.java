@@ -16,8 +16,10 @@ public class Login {
     	List<Object[]> resultado = miBD.Select("SELECT * FROM Usuarios WHERE ID='" + nick + "';");
     	if(resultado.size()!=0) {
     		//usuario = new Usuario(nick);
+    		System.out.println("Usuario sí existe");
     		return true;
     	} else {
+    		System.out.println("Usuario no existe");
     		return false;
     	}
     }
