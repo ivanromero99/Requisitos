@@ -9,13 +9,14 @@ public class Login {
     private static BD miBD = new BD(BD_SERVER, BD_NAME);
     
     private static Usuario usuario;
-    private static ONG ONG;
+    private static String nombreUsuario;
     
-    public static boolean loginUsuario(String nick, String contraseña) {
+    public static boolean login(String nick, String contraseña) {
     	
     	List<Object[]> resultado = miBD.Select("SELECT * FROM Usuarios WHERE ID='" + nick + "';");
     	if(resultado.size()!=0) {
     		//usuario = new Usuario(nick);
+    		//this.nombreUsuario = usuario.getID();
     		System.out.println("Usuario sí existe");
     		return true;
     	} else {
@@ -24,19 +25,5 @@ public class Login {
     	}
     }
     
-    public static boolean loginONG(int nick, String contraseña) {
-    	
-    	List<Object[]> resultado = miBD.Select("SELECT * FROM ONG WHERE ID=" + nick + ";");
-    	if(resultado.size()!=0) {
-    		//ONG = new ONG(nick);
-    		return true;
-    	} else {
-    		return false;
-    	}
-    }
-    
-    public static void cerrarSesion() {
-		usuario = null;
-	}
 
 }
