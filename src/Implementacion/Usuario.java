@@ -49,17 +49,34 @@ package Implementacion;
 		        this.apellidos = (String)tupla[3];
 		        this.edad = (Integer)tupla[4];
 		        this.rol = new Rol((String)tupla[5]);
-		        this.imparte_asignatura = (Integer)tupla[6];
-		        
-		        if((Integer)tupla[7] == 0) {
-		        	this.turno_preferente = false;
-		        } else {
-		        	this.turno_preferente = true;
+		        if(tupla[6]!=null) {
+		        	this.imparte_asignatura = (Integer)tupla[6];
 		        }
-		        this.lugar_preferente = (String)tupla[8];
-		        this.categoria_preferente = (String)tupla[9];
-		        this.descripcion_ONG = (String)tupla[10];
-		        this.web = (String)tupla[11];
+		        
+		        if(tupla[7]!=null) {
+		        	 if((Integer)tupla[7] == 0) {
+				        	this.turno_preferente = false;
+				        } else {
+				        	this.turno_preferente = true;
+				     }
+		        }
+		        
+		        if(tupla[8]!=null) {
+		        	this.lugar_preferente = (String)tupla[8];
+		        }
+		        
+		        if(tupla[9]!=null) {
+		        	this.categoria_preferente = (String)tupla[9];
+		        }
+		        
+		        if(tupla[10]!=null) {
+		        	this.descripcion_ONG = (String)tupla[10];
+		        }
+		        
+		        if(tupla[11]!=null) {
+		        	this.web = (String)tupla[11];
+		        }
+		      
 	    }
 	    
 	    public Usuario(String id,String pass, String nombre, String apellidos, Rol rol)

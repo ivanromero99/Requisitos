@@ -128,10 +128,10 @@ public class Home implements OpenableWindow {
 		if(Implementacion.Login.usuario == null) {
 			lblUsuario.setVisible(false);
 			lblIniciarSesin.setVisible(true);
-			//lblUsuario.setText(Implementacion.Login.usuario.getID);
 		} else {
 			lblIniciarSesin.setVisible(false);
 			lblUsuario.setVisible(true);
+			lblUsuario.setText(Implementacion.Login.usuario.getID());
 		}
 		
 		lblIniciarSesin.addMouseListener(new MouseAdapter() {

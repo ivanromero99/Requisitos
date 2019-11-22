@@ -21,7 +21,7 @@ public class Rol {
 		BD miBD = new BD(BD_SERVER,BD_NAME);
 		ArrayList<Rol> lista = new ArrayList<Rol>(); 
 					
-		for(Object[] tupla: miBD.Select("SELECT Rol FROM Rol;"))
+		for(Object[] tupla: miBD.Select("SELECT Roles FROM Rol;"))
 		{
 			String nombre = (String)tupla[0];
 			Rol r = new Rol(nombre);
@@ -34,25 +34,25 @@ public class Rol {
 	public Rol(String string) {
 		BD miBD = new BD(BD_SERVER,BD_NAME);			
 		  
-		Object[] tupla = miBD.Select("SELECT * FROM Rol " + "WHERE Rol='"+string+ "';").get(0);
+		Object[] tupla = miBD.Select("SELECT * FROM Roles " + "WHERE Rol='"+string+ "';").get(0);
 		
         this.nombre = (String)tupla[0];
-        if((Integer)tupla[1] == 0) {
+        if((boolean) tupla[1]) {
         	this.seleccionar = false;
         } else {
         	this.seleccionar = true;
         }
-        if((Integer)tupla[2] == 0) {
+        if((boolean) tupla[2]) {
         	this.inscribir = false;
         } else {
         	this.inscribir = true;
         }
-        if((Integer)tupla[3] == 0) {
+        if((boolean) tupla[3]) {
         	this.calificar = false;
         } else {
         	this.calificar = true;
         }
-        if((Integer)tupla[1] == 0) {
+        if((boolean) tupla[4]) {
         	this.validar = false;
         } else {
         	this.validar = true;
@@ -91,7 +91,7 @@ public class Rol {
 	    	}
 	    	
 	    	
-	    	miBD.Insert("INSERT INTO Rol VALUES(" + "'" + nombre + ", " + valSelec + ", " + valInsc + ", " + valCalif + ", " + valValid + "');" );			
+	    	miBD.Insert("INSERT INTO Roles VALUES(" + "'" + nombre + ", " + valSelec + ", " + valInsc + ", " + valCalif + ", " + valValid + "');" );			
 	    	
 	    	this.nombre = nombre;
 	    	this.seleccionar = selec;
@@ -109,7 +109,7 @@ public class Rol {
 	    	
 			// Actualiza el atributo en memoria y en la base de datos
 	    	BD miBD = new BD(BD_SERVER,BD_NAME);
-	    	miBD.Update("UPDATE Rol SET Rol = '" + value 
+	    	miBD.Update("UPDATE Roles SET Rol = '" + value 
 	    			+ "' WHERE Rol ='"+ this.nombre + "';");
 	    	
 	    	this.nombre = value; 
@@ -126,10 +126,10 @@ public class Rol {
 			// Actualiza el atributo en memoria y en la base de datos
 	    	BD miBD = new BD(BD_SERVER,BD_NAME);
 	    	if(!value) {
-	    		miBD.Update("UPDATE Rol SET Seleccionar = '" + 0 
+	    		miBD.Update("UPDATE Roles SET Seleccionar = '" + 0 
 	    			+ "' WHERE Rol ='"+ this.nombre + "';");
 	    	} else {
-	    		miBD.Update("UPDATE Rol SET Seleccionar = '" + 1
+	    		miBD.Update("UPDATE Roles SET Seleccionar = '" + 1
 		    			+ "' WHERE Rol ='"+ this.nombre + "';");
 	    	}
 	    	
@@ -147,10 +147,10 @@ public class Rol {
 			// Actualiza el atributo en memoria y en la base de datos
 	    	BD miBD = new BD(BD_SERVER,BD_NAME);
 	    	if(!value) {
-	    		miBD.Update("UPDATE Rol SET Calificar = '" + 0 
+	    		miBD.Update("UPDATE Roles SET Calificar = '" + 0 
 	    			+ "' WHERE Rol ='"+ this.nombre + "';");
 	    	} else {
-	    		miBD.Update("UPDATE Rol SET Calificar = '" + 1
+	    		miBD.Update("UPDATE Roles SET Calificar = '" + 1
 		    			+ "' WHERE Rol ='"+ this.nombre + "';");
 	    	}
 	    	
@@ -168,10 +168,10 @@ public class Rol {
 			// Actualiza el atributo en memoria y en la base de datos
 	    	BD miBD = new BD(BD_SERVER,BD_NAME);
 	    	if(!value) {
-	    		miBD.Update("UPDATE Rol SET Validar = '" + 0 
+	    		miBD.Update("UPDATE Roles SET Validar = '" + 0 
 	    			+ "' WHERE Rol ='"+ this.nombre + "';");
 	    	} else {
-	    		miBD.Update("UPDATE Rol SET Validar = '" + 1
+	    		miBD.Update("UPDATE Roles SET Validar = '" + 1
 		    			+ "' WHERE Rol ='"+ this.nombre + "';");
 	    	}
 	    	
@@ -189,10 +189,10 @@ public class Rol {
 			// Actualiza el atributo en memoria y en la base de datos
 	    	BD miBD = new BD(BD_SERVER,BD_NAME);
 	    	if(!value) {
-	    		miBD.Update("UPDATE Rol SET Inscribir = '" + 0 
+	    		miBD.Update("UPDATE Roles SET Inscribir = '" + 0 
 	    			+ "' WHERE Rol ='"+ this.nombre + "';");
 	    	} else {
-	    		miBD.Update("UPDATE Rol SET Inscribir = '" + 1
+	    		miBD.Update("UPDATE Roles SET Inscribir = '" + 1
 		    			+ "' WHERE Rol ='"+ this.nombre + "';");
 	    	}
 	    	
