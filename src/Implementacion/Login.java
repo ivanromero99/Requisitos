@@ -11,9 +11,23 @@ public class Login {
     private static Usuario usuario;
     private static String nombreUsuario;
     
-    public static boolean login(String nick, String contraseña) {
+    public static boolean loginUsuario(String nick, String contraseña) {
     	
-    	List<Object[]> resultado = miBD.Select("SELECT * FROM Usuarios WHERE ID='" + nick + "';");
+    	List<Object[]> resultado = miBD.Select("SELECT * FROM Usuarios WHERE ID='" + nick + "' AND Rol!='ONG';");
+    	if(resultado.size()!=0) {
+    		//usuario = new Usuario(nick);
+    		//this.nombreUsuario = usuario.getID();
+    		System.out.println("Usuario sí existe");
+    		return true;
+    	} else {
+    		System.out.println("Usuario no existe");
+    		return false;
+    	}
+    }
+    
+public static boolean loginONG(String nick, String contraseña) {
+    	
+	List<Object[]> resultado = miBD.Select("SELECT * FROM Usuarios WHERE ID='" + nick + "' AND Rol='ONG';");
     	if(resultado.size()!=0) {
     		//usuario = new Usuario(nick);
     		//this.nombreUsuario = usuario.getID();
