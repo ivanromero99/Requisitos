@@ -50,7 +50,12 @@ package Implementacion;
 		        this.edad = (Integer)tupla[4];
 		        this.rol = new Rol((String)tupla[5]);
 		        this.imparte_asignatura = (Integer)tupla[6];
-		        this.turno_preferente = (Boolean)tupla[7];
+		        
+		        if((Integer)tupla[7] == 0) {
+		        	this.turno_preferente = false;
+		        } else {
+		        	this.turno_preferente = true;
+		        }
 		        this.lugar_preferente = (String)tupla[8];
 		        this.categoria_preferente = (String)tupla[9];
 		        this.descripcion_ONG = (String)tupla[10];
@@ -62,7 +67,7 @@ package Implementacion;
 			// Crea el objeto y lo inserta en la base de datos
 	    	BD miBD = new BD(BD_SERVER,BD_NAME);		
 	    	
-	    	miBD.Insert("INSERT INTO tUsuario VALUES(" + "'" + id + "', '" + pass + "', '" + nombre + "', '" + "'" + apellidos + "', NULL, '" + "'" + rol + "', NULL,NULL,NULL,NULL,NULL,NULL" +  "');" );			
+	    	miBD.Insert("INSERT INTO Usuarios VALUES(" + "'" + id + "', '" + pass + "', '" + nombre + "', '" + "'" + apellidos + "', NULL, '" + "'" + rol.getNombre() + "', NULL,NULL,NULL,NULL,NULL,NULL" +  "');" );			
 	    	
 	    	this.ID = id;
 	    	this.password = pass;
@@ -92,6 +97,22 @@ package Implementacion;
 	    	miBD.Update("UPDATE Usuarios SET ID = '" + value 
 	    			+ "' WHERE ID ='"+ this.ID + "';");
 	    	
+	    	this.password = value; 
+	    }
+	    
+	    public String gePass() 
+	    { 
+	    	return password; 
+	    }
+
+	    public void setPass(String value) 
+	    { 
+	    	
+			// Actualiza el atributo en memoria y en la base de datos
+	    	BD miBD = new BD(BD_SERVER,BD_NAME);
+	    	miBD.Update("UPDATE Usuarios SET Password = '" + value 
+	    			+ "' WHERE ID ='"+ this.ID + "';");
+	    	
 	    	this.ID = value; 
 	    }
 
@@ -116,7 +137,7 @@ package Implementacion;
 			// Actualiza el atributo en memoria y en la base de datos
 	    	BD miBD = new BD(BD_SERVER,BD_NAME);
 	    	miBD.Update("UPDATE Usuarios SET Nombre = '" + value 
-	    			+ "' WHERE Nombre ='"+ this.nombre + "';");
+	    			+ "' WHERE ID ='"+ this.ID + "';");
 	    	
 	    	this.nombre = value; 
 	    }
@@ -132,7 +153,7 @@ package Implementacion;
 			// Actualiza el atributo en memoria y en la base de datos
 	    	BD miBD = new BD(BD_SERVER,BD_NAME);
 	    	miBD.Update("UPDATE Usuarios SET Apellidos = '" + value 
-	    			+ "' WHERE Apellidos ='"+ this.apellidos + "';");
+	    			+ "' WHERE ID ='"+ this.ID + "';");
 	    	
 	    	this.apellidos = value; 
 	    }
@@ -148,7 +169,7 @@ package Implementacion;
 			// Actualiza el atributo en memoria y en la base de datos
 	    	BD miBD = new BD(BD_SERVER,BD_NAME);
 	    	miBD.Update("UPDATE Usuarios SET Edad = '" + value 
-	    			+ "' WHERE Edad ='"+ this.edad + "';");
+	    			+ "' WHERE ID ='"+ this.ID + "';");
 	    	
 	    	this.edad = value; 
 	    }
@@ -164,9 +185,31 @@ package Implementacion;
 			// Actualiza el atributo en memoria y en la base de datos
 	    	BD miBD = new BD(BD_SERVER,BD_NAME);
 	    	miBD.Update("UPDATE Usuarios SET Imparte_Asignatura = '" + value 
-	    			+ "' WHERE Imparte_Asignatura ='"+ this.imparte_asignatura + "';");
+	    			+ "' WHERE ID ='"+ this.ID + "';");
 	    	
 	    	this.imparte_asignatura = value; 
+	    }
+	    
+	    
+	    public boolean getTurno() 
+	    { 
+	    	return turno_preferente; 
+	    }
+
+	    public void setTurno(boolean value) 
+	    { 
+	    	
+			// Actualiza el atributo en memoria y en la base de datos
+	    	BD miBD = new BD(BD_SERVER,BD_NAME);
+	    	if(!value) {
+	    		miBD.Update("UPDATE Usuarios SET Turno_preferente = '" + 0 
+	    			+ "' WHERE ID ='"+ this.ID + "';");
+	    	} else {
+	    		miBD.Update("UPDATE Usuarios SET Turno_preferente = '" + 1
+		    			+ "' WHERE ID ='"+ this.ID + "';");
+	    	}
+	    	
+	    	this.turno_preferente = value; 
 	    }
 	    
 	    public String getCategoria() 
@@ -180,11 +223,58 @@ package Implementacion;
 			// Actualiza el atributo en memoria y en la base de datos
 	    	BD miBD = new BD(BD_SERVER,BD_NAME);
 	    	miBD.Update("UPDATE Usuarios SET Categoria_preferente = '" + value 
-	    			+ "' WHERE Apellidos ='"+ this.apellidos + "';");
+	    			+ "' WHERE Categoria_preferente ='"+ this.categoria_preferente + "';");
 	    	
-	    	this.apellidos = value; 
+	    	this.categoria_preferente = value; 
 	    }
 	    
+	    public String getLugar() 
+	    { 
+	    	return lugar_preferente; 
+	    }
+
+	    public void setLugar(String value) 
+	    { 
+	    	
+			// Actualiza el atributo en memoria y en la base de datos
+	    	BD miBD = new BD(BD_SERVER,BD_NAME);
+	    	miBD.Update("UPDATE Usuarios SET Lugar_preferente = '" + value 
+	    			+ "' WHERE ID ='"+ this.ID + "';");
+	    	
+	    	this.lugar_preferente = value; 
+	    }
+	    
+	    public String getDescripcion() 
+	    { 
+	    	return descripcion_ONG; 
+	    }
+
+	    public void setDescripcion(String value) 
+	    { 
+	    	
+			// Actualiza el atributo en memoria y en la base de datos
+	    	BD miBD = new BD(BD_SERVER,BD_NAME);
+	    	miBD.Update("UPDATE Usuarios SET Descripcion_ONG = '" + value 
+	    			+ "' WHERE Descripcion_ONG ='"+ this.descripcion_ONG + "';");
+	    	
+	    	this.descripcion_ONG = value; 
+	    }
+	    
+	    public String getWeb() 
+	    { 
+	    	return web; 
+	    }
+
+	    public void setWeb(String value) 
+	    { 
+	    	
+			// Actualiza el atributo en memoria y en la base de datos
+	    	BD miBD = new BD(BD_SERVER,BD_NAME);
+	    	miBD.Update("UPDATE Usuarios SET Web = '" + value 
+	    			+ "' WHERE Web ='"+ this.web + "';");
+	    	
+	    	this.web = value; 
+	    }
 	    
 	    
 	    public Rol getRol()
@@ -200,22 +290,22 @@ package Implementacion;
 
 	    public String toString()
 	    {
-	        return nif + ";" + password + ";" + rol;
+	        return ID + ";" + nombre + apellidos + ";" + rol;
 	    }
 
 	    public boolean equals(Object obj)
 	    {
-	        return (obj instanceof Usuario) && ((Usuario)obj).nif.equals(this.nif);
+	        return (obj instanceof Usuario) && ((Usuario)obj).ID.equals(this.ID);
 	    }
 
 	    public int hashCode()
 	    {
-	        return this.nif.hashCode();
+	        return this.ID.hashCode();
 	    }
 
 		public int compareTo(Usuario u) 
 		{
-			return this.nif.compareToIgnoreCase(u.nif);	
+			return this.ID.compareToIgnoreCase(u.ID);	
 		}
 	}
 
