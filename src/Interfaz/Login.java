@@ -56,11 +56,6 @@ public class Login implements OpenableWindow {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/Interfaz/Logos/LogoUma.png")));
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1.setForeground(new Color(255, 0, 0));
-		
 		JLabel lblOng = new JLabel("ONG");
 		lblOng.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblOng.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -68,16 +63,24 @@ public class Login implements OpenableWindow {
 		JLabel label = new JLabel("Contrase\u00F1a");
 		label.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
+		JLabel lblAccedeConTu = new JLabel("Accede con tu cuenta ONG:");
+		lblAccedeConTu.setForeground(Color.BLUE);
+		lblAccedeConTu.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 24));
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setForeground(Color.RED);
+		
+		JLabel label_1 = new JLabel("");
+		label_1.setForeground(Color.RED);
+		label_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		textField.setColumns(10);
 		
 		passwordField_1 = new JPasswordField();
 		passwordField_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		
-		JLabel lblAccedeConTu = new JLabel("Accede con tu cuenta ONG:");
-		lblAccedeConTu.setForeground(Color.BLUE);
-		lblAccedeConTu.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 24));
 		
 		JButton button = new JButton("Iniciar Sesi\u00F3n");
 		button.setForeground(Color.WHITE);
@@ -88,13 +91,9 @@ public class Login implements OpenableWindow {
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+					.addContainerGap(60, Short.MAX_VALUE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addContainerGap(334, Short.MAX_VALUE)
-							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 258, GroupLayout.PREFERRED_SIZE)
-							.addGap(187))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(60)
 							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 								.addComponent(lblUsuario)
 								.addComponent(lblContraseña)
@@ -104,55 +103,69 @@ public class Login implements OpenableWindow {
 							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 								.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
 									.addComponent(passwordField, Alignment.LEADING)
-									.addComponent(textField_Usuario, Alignment.LEADING, 364, 364, Short.MAX_VALUE)
-									.addComponent(btnIniciarSesin, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE))
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE)
-								.addComponent(passwordField_1, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblAccedeConTu, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE)
-								.addComponent(button, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED, 143, Short.MAX_VALUE)))
-					.addGap(139)
+									.addComponent(textField_Usuario, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+									.addGroup(gl_panel.createSequentialGroup()
+										.addGap(83)
+										.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnIniciarSesin, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 467, GroupLayout.PREFERRED_SIZE)
+								.addComponent(passwordField_1, GroupLayout.PREFERRED_SIZE, 467, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
+									.addGap(53)
+									.addComponent(button, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)))
+							.addPreferredGap(ComponentPlacement.RELATED))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(lblAccedeConTu, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE)
+							.addGap(62)))
+					.addGap(67)
 					.addComponent(lblNewLabel)
-					.addGap(64))
+					.addGap(118))
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(169)
+					.addGap(321)
 					.addComponent(lblInicieSesinComo, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(680, Short.MAX_VALUE))
+					.addContainerGap(465, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-					.addContainerGap(88, Short.MAX_VALUE)
+					.addContainerGap(70, Short.MAX_VALUE)
 					.addComponent(lblInicieSesinComo)
-					.addGap(53)
+					.addGap(35)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblUsuario)
 						.addComponent(textField_Usuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(33)
+					.addGap(32)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblContraseña)
 						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(28)
-					.addComponent(btnIniciarSesin)
-					.addGap(65)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(27)
+							.addComponent(btnIniciarSesin))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(46)
+							.addComponent(lblNewLabel_1)))
+					.addGap(60)
 					.addComponent(lblAccedeConTu, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-					.addGap(36)
-					.addComponent(lblNewLabel_1)
-					.addGap(13)
+					.addGap(28)
 					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblOng, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
-					.addGap(27)
+					.addGap(31)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(label, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 						.addComponent(passwordField_1, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
-					.addGap(29)
-					.addComponent(button, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-					.addGap(38))
+					.addGap(30)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(button, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+					.addGap(97))
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(202)
+					.addGap(212)
 					.addComponent(lblNewLabel)
-					.addContainerGap(208, Short.MAX_VALUE))
+					.addContainerGap(198, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		
@@ -162,7 +175,7 @@ public class Login implements OpenableWindow {
 			public void actionPerformed(ActionEvent event) {
 				String usuario = textField_Usuario.getText();
 				String password = String.valueOf(passwordField.getPassword());				
-				boolean b = LoginControlador.iniciarSesion(usuario, password);
+				boolean b = LoginControlador.iniciarSesionUsuario(usuario, password);
 				if(!b) {
 					lblNewLabel_1.setText("Error al iniciar sesión");
 					textField_Usuario.setText("");
@@ -180,6 +193,6 @@ public class Login implements OpenableWindow {
 	}
 
 	public boolean isCentered() {
-		return true;
+		return false;
 	}
 }

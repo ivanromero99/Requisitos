@@ -8,15 +8,13 @@ public class Login {
     private static String BD_NAME = "REQUISITOS";
     private static BD miBD = new BD(BD_SERVER, BD_NAME);
     
-    private static Usuario usuario;
-    private static String nombreUsuario;
+    public static Usuario usuario;
     
     public static boolean loginUsuario(String nick, String contraseña) {
     	
     	List<Object[]> resultado = miBD.Select("SELECT * FROM Usuarios WHERE ID='" + nick + "' AND Rol!='ONG';");
-    	if(resultado.size()!=0) {
-    		//usuario = new Usuario(nick);
-    		//this.nombreUsuario = usuario.getID();
+    	if(resultado.size()!=0 && resultado.get(0)[1].equals(contraseña)) {
+    		usuario = new Usuario(nick);
     		System.out.println("Usuario sí existe");
     		return true;
     	} else {
@@ -28,9 +26,8 @@ public class Login {
 public static boolean loginONG(String nick, String contraseña) {
     	
 	List<Object[]> resultado = miBD.Select("SELECT * FROM Usuarios WHERE ID='" + nick + "' AND Rol='ONG';");
-    	if(resultado.size()!=0) {
-    		//usuario = new Usuario(nick);
-    		//this.nombreUsuario = usuario.getID();
+    	if(resultado.size()!=0 && resultado.get(0)[1].equals(contraseña)) {
+    		usuario = new Usuario(nick);
     		System.out.println("Usuario sí existe");
     		return true;
     	} else {

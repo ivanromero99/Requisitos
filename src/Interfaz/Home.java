@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
@@ -122,6 +124,23 @@ public class Home implements OpenableWindow {
 					.addContainerGap(136, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
+		
+		if(Implementacion.Login.usuario == null) {
+			lblUsuario.setVisible(false);
+			lblIniciarSesin.setVisible(true);
+			//lblUsuario.setText(Implementacion.Login.usuario.getID);
+		} else {
+			lblIniciarSesin.setVisible(false);
+			lblUsuario.setVisible(true);
+		}
+		
+		lblIniciarSesin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToLogin();
+			}
+		});
 	}
 
 	public JPanel getWindow() {
