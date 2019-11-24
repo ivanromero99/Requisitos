@@ -15,9 +15,8 @@ package Implementacion;
 		private int edad;
 		private int imparte_asignatura;
 		private boolean turno_preferente;
-		private String lugar_preferente;
+		private String subcategoria_preferente;
 		private String categoria_preferente;
-		private String subcategoria_preferente; //hay que hacerle get y set y añadir el campo en la BD si no lo tienes
 		private String descripcion_ONG;
 		private String web;
 	    private Rol rol;
@@ -63,7 +62,7 @@ package Implementacion;
 		        }
 		        
 		        if(tupla[8]!=null) {
-		        	this.lugar_preferente = (String)tupla[8];
+		        	this.subcategoria_preferente = (String)tupla[8];
 		        }
 		        
 		        if(tupla[9]!=null) {
@@ -95,7 +94,7 @@ package Implementacion;
 	        this.rol = rol;
 	        this.imparte_asignatura = (Integer)null;
 	        this.turno_preferente = (Boolean)null;
-	        this.lugar_preferente = (String)null;
+	        this.subcategoria_preferente = (String)null;
 	        this.categoria_preferente = (String)null;
 	        this.descripcion_ONG = (String)null;
 	        this.web = (String)null;
@@ -118,7 +117,7 @@ package Implementacion;
 	    	this.password = value; 
 	    }
 	    
-	    public String gePass() 
+	    public String getPass() 
 	    { 
 	    	return password; 
 	    }
@@ -176,9 +175,9 @@ package Implementacion;
 	    	this.apellidos = value; 
 	    }
 	    
-	    public int getEdad() 
+	    public String getEdad() 
 	    { 
-	    	return edad; 
+	    	return Integer.toString(edad); 
 	    }
 
 	    public void setEdad(int value) 
@@ -246,20 +245,20 @@ package Implementacion;
 	    	this.categoria_preferente = value; 
 	    }
 	    
-	    public String getLugar() 
+	    public String getSubcategoria() 
 	    { 
-	    	return lugar_preferente; 
+	    	return subcategoria_preferente; 
 	    }
 
-	    public void setLugar(String value) 
+	    public void setSubcategoria(String value) 
 	    { 
 	    	
 			// Actualiza el atributo en memoria y en la base de datos
 	    	BD miBD = new BD(BD_SERVER,BD_NAME);
-	    	miBD.Update("UPDATE Usuarios SET Lugar_preferente = '" + value 
+	    	miBD.Update("UPDATE Usuarios SET Subcategoria_preferente = '" + value 
 	    			+ "' WHERE ID ='"+ this.ID + "';");
 	    	
-	    	this.lugar_preferente = value; 
+	    	this.subcategoria_preferente = value; 
 	    }
 	    
 	    public String getDescripcion() 

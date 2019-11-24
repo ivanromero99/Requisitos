@@ -23,6 +23,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
+import Implementacion.Login;
+
 public class PerfilUsuario implements OpenableWindow {
 	
 	private JPanel panel;
@@ -86,9 +88,6 @@ public class PerfilUsuario implements OpenableWindow {
 		JLabel lblCategora = new JLabel("Categor\u00EDa: ");
 		lblCategora.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
-		JLabel lblSubcategora = new JLabel("Lugar: ");
-		lblSubcategora.setFont(new Font("Tahoma", Font.BOLD, 16));
-		
 		JLabel lblLugar = new JLabel("Subcategor\u00EDa: ");
 		lblLugar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
@@ -134,15 +133,25 @@ public class PerfilUsuario implements OpenableWindow {
 		comboBox_1.setForeground(Color.BLACK);
 		comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setForeground(Color.BLACK);
-		comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
 		JRadioButton rdbtnMaana = new JRadioButton("Ma\u00F1ana");
 		rdbtnMaana.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JRadioButton rdbtnTarde = new JRadioButton("Tarde");
 		rdbtnTarde.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
+		textField.setText(Login.usuario.getID());
+		textField_1.setText(Login.usuario.getNombre());
+		textField_2.setText(Login.usuario.getApellidos());
+		textField_3.setText(Login.usuario.getEdad());
+		
+		if(Login.usuario.getTurno()) {
+			rdbtnTarde.setSelected(true);
+		} 
+		
+		if(!Login.usuario.getTurno()) {
+			rdbtnTarde.setSelected(false);
+		} 
+		
 		
 		if(rdbtnMaana.isSelected()) {
 			rdbtnTarde.setSelected(false);
@@ -193,25 +202,26 @@ public class PerfilUsuario implements OpenableWindow {
 							.addGap(297)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel.createSequentialGroup()
+									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblCategora, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+											.addGap(20))
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblLugar, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)))
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 362, GroupLayout.PREFERRED_SIZE)
+										.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 362, GroupLayout.PREFERRED_SIZE)))
+								.addGroup(gl_panel.createSequentialGroup()
 									.addComponent(lblTurno, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(rdbtnMaana)
-									.addGap(32)
-									.addComponent(rdbtnTarde, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblCategora, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblLugar, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblSubcategora))
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 362, GroupLayout.PREFERRED_SIZE)
-										.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 362, GroupLayout.PREFERRED_SIZE)
-										.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 362, GroupLayout.PREFERRED_SIZE))))
-							.addGap(59)
-							.addComponent(btnGuardar, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)))
+									.addGap(27)
+									.addComponent(rdbtnTarde, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+									.addGap(204)
+									.addComponent(btnGuardar, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)))))
 					.addContainerGap(64, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
@@ -257,28 +267,24 @@ public class PerfilUsuario implements OpenableWindow {
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblCategora, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addGap(2)
+					.addGap(14)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblLugar, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+							.addGap(39)
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnGuardar))
-							.addGap(37))
+								.addComponent(btnGuardar)
+								.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(27)
-							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblSubcategora, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-								.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
+							.addGap(22)
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblTurno, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 								.addComponent(rdbtnMaana)
-								.addComponent(rdbtnTarde))
-							.addContainerGap())))
+								.addComponent(rdbtnTarde))))
+					.addGap(24))
 		);
 		panel.setLayout(gl_panel);
 		
@@ -286,7 +292,15 @@ public class PerfilUsuario implements OpenableWindow {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				//PerfilUsuarioControlador.guardarPerfil(textField_1.getSelectedText(), textField_2.getSelectedText(), textField_3.getSelectedText(), comboBox.getSelectedItem().getNombre(), comboBox_1.getSelectedItem().getNombre(), comboBox_2.getSelectedItem().getNombre(), turno);
+				//PerfilUsuarioControlador.guardarPerfil(textField_1.getSelectedText(), textField_2.getSelectedText(), textField_3.getSelectedText(), comboBox.getSelectedItem().getNombre(), comboBox_1.getSelectedItem().getNombre(), turno);
+				PerfilUsuarioControlador.goToHome();
+			}
+		});
+		
+		btnCancelar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent event) {
 				PerfilUsuarioControlador.goToHome();
 			}
 		});
