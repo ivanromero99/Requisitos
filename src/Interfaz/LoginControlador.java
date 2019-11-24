@@ -7,7 +7,7 @@ public class LoginControlador {
 	public static boolean iniciarSesionUsuario(String u, String c) {
 		System.out.println("Llamada a iniciar sesion");
 		if (Login.loginUsuario(u,c)) {
-			Window.open(new Home());
+			Window.open(new PerfilUsuario());
 			return true;
 		} else {
 			return false;

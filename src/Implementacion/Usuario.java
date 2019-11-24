@@ -54,7 +54,7 @@ package Implementacion;
 		        }
 		        
 		        if(tupla[7]!=null) {
-		        	 if((Integer)tupla[7] == 0) {
+		        	 if(((boolean) tupla[7]) == false) { 
 				        	this.turno_preferente = false;
 				        } else {
 				        	this.turno_preferente = true;
