@@ -17,6 +17,7 @@ package Implementacion;
 		private boolean turno_preferente;
 		private String lugar_preferente;
 		private String categoria_preferente;
+		private String subcategoria_preferente; //hay que hacerle get y set y añadir el campo en la BD si no lo tienes
 		private String descripcion_ONG;
 		private String web;
 	    private Rol rol;
