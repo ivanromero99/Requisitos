@@ -2,6 +2,7 @@ package Interfaz;
 
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -23,7 +24,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
+import Implementacion.Categoria;
 import Implementacion.Login;
+import Implementacion.Subcategoria;
 
 public class PerfilUsuario implements OpenableWindow {
 	
@@ -144,24 +147,28 @@ public class PerfilUsuario implements OpenableWindow {
 		textField_2.setText(Login.usuario.getApellidos());
 		textField_3.setText(Login.usuario.getEdad());
 		
+		for(Categoria c : Categoria.ListaCategorias()) {
+			comboBox.addItem(c.getNombre());
+		}
+		
+		for(Subcategoria s : Subcategoria.ListaSubcategorias()) {
+			comboBox_1.addItem(s.getNombre());
+		}
+		
+		comboBox.setSelectedItem(Login.usuario.getCategoria().getNombre());
+		comboBox_1.setSelectedItem(Login.usuario.getSubcategoria().getNombre());
+		
+		ButtonGroup group = new ButtonGroup();
+		group.add(rdbtnTarde);
+		group.add(rdbtnMaana);
+		
 		if(Login.usuario.getTurno()) {
 			rdbtnTarde.setSelected(true);
 		} 
 		
 		if(!Login.usuario.getTurno()) {
-			rdbtnTarde.setSelected(false);
+			rdbtnMaana.setSelected(true);
 		} 
-		
-		
-		if(rdbtnMaana.isSelected()) {
-			rdbtnTarde.setSelected(false);
-			turno = false;
-		}
-		
-		if(rdbtnTarde.isSelected()) {
-			rdbtnMaana.setSelected(false);
-			turno = true;
-		}
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -292,7 +299,18 @@ public class PerfilUsuario implements OpenableWindow {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				//PerfilUsuarioControlador.guardarPerfil(textField_1.getSelectedText(), textField_2.getSelectedText(), textField_3.getSelectedText(), comboBox.getSelectedItem().getNombre(), comboBox_1.getSelectedItem().getNombre(), turno);
+				
+				if(rdbtnMaana.isSelected()) {
+					turno = false;
+				}
+				
+				if(rdbtnTarde.isSelected()) {
+					turno = true;
+				}
+				
+				Categoria cat = new Categoria(comboBox.getSelectedItem().toString());
+				Subcategoria subcat = new Subcategoria(comboBox_1.getSelectedItem().toString());
+				PerfilUsuarioControlador.guardarPerfil(textField_1.getText(), textField_2.getText(), textField_3.getText(), cat, subcat, turno);
 				PerfilUsuarioControlador.goToHome();
 			}
 		});
@@ -304,7 +322,7 @@ public class PerfilUsuario implements OpenableWindow {
 				PerfilUsuarioControlador.goToHome();
 			}
 		});
-		
+	
 	}
 
 	public JPanel getWindow() {

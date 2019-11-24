@@ -12,11 +12,11 @@ package Implementacion;
 		private String password;
 		private String nombre;
 		private String apellidos;
-		private int edad;
+		private String edad;
 		private int imparte_asignatura;
 		private boolean turno_preferente;
-		private String subcategoria_preferente;
-		private String categoria_preferente;
+		private Subcategoria subcategoria_preferente;
+		private Categoria categoria_preferente;
 		private String descripcion_ONG;
 		private String web;
 	    private Rol rol;
@@ -47,7 +47,7 @@ package Implementacion;
 		        this.password = (String)tupla[1];
 		        this.nombre = (String)tupla[2];
 		        this.apellidos = (String)tupla[3];
-		        this.edad = (Integer)tupla[4];
+		        this.edad = tupla[4].toString();
 		        this.rol = new Rol((String)tupla[5]);
 		        if(tupla[6]!=null) {
 		        	this.imparte_asignatura = (Integer)tupla[6];
@@ -62,11 +62,11 @@ package Implementacion;
 		        }
 		        
 		        if(tupla[8]!=null) {
-		        	this.subcategoria_preferente = (String)tupla[8];
+		        	this.subcategoria_preferente = new Subcategoria((String)tupla[8]);
 		        }
 		        
 		        if(tupla[9]!=null) {
-		        	this.categoria_preferente = (String)tupla[9];
+		        	this.categoria_preferente = new Categoria((String)tupla[9]);
 		        }
 		        
 		        if(tupla[10]!=null) {
@@ -90,12 +90,12 @@ package Implementacion;
 	    	this.password = pass;
 	        this.nombre = nombre;
 	        this.apellidos = apellidos;
-	        this.edad = (Integer)null;
+	        this.edad = (String)null;
 	        this.rol = rol;
 	        this.imparte_asignatura = (Integer)null;
 	        this.turno_preferente = (Boolean)null;
-	        this.subcategoria_preferente = (String)null;
-	        this.categoria_preferente = (String)null;
+	        this.subcategoria_preferente = null;
+	        this.categoria_preferente = null;
 	        this.descripcion_ONG = (String)null;
 	        this.web = (String)null;
 	        
@@ -177,15 +177,15 @@ package Implementacion;
 	    
 	    public String getEdad() 
 	    { 
-	    	return Integer.toString(edad); 
+	    	return edad; 
 	    }
 
-	    public void setEdad(int value) 
+	    public void setEdad(String value) 
 	    { 
-	    	
+	    	int v = Integer.parseInt(value);
 			// Actualiza el atributo en memoria y en la base de datos
 	    	BD miBD = new BD(BD_SERVER,BD_NAME);
-	    	miBD.Update("UPDATE Usuarios SET Edad = '" + value 
+	    	miBD.Update("UPDATE Usuarios SET Edad = '" + v 
 	    			+ "' WHERE ID ='"+ this.ID + "';");
 	    	
 	    	this.edad = value; 
@@ -229,7 +229,7 @@ package Implementacion;
 	    	this.turno_preferente = value; 
 	    }
 	    
-	    public String getCategoria() 
+	    public Categoria getCategoria() 
 	    { 
 	    	return categoria_preferente; 
 	    }
@@ -242,10 +242,10 @@ package Implementacion;
 	    	miBD.Update("UPDATE Usuarios SET Categoria_preferente = '" + value 
 	    			+ "' WHERE Categoria_preferente ='"+ this.categoria_preferente + "';");
 	    	
-	    	this.categoria_preferente = value; 
+	    	this.categoria_preferente = new Categoria(value); 
 	    }
 	    
-	    public String getSubcategoria() 
+	    public Subcategoria getSubcategoria() 
 	    { 
 	    	return subcategoria_preferente; 
 	    }
@@ -258,7 +258,7 @@ package Implementacion;
 	    	miBD.Update("UPDATE Usuarios SET Subcategoria_preferente = '" + value 
 	    			+ "' WHERE ID ='"+ this.ID + "';");
 	    	
-	    	this.subcategoria_preferente = value; 
+	    	this.subcategoria_preferente = new Subcategoria(value); 
 	    }
 	    
 	    public String getDescripcion() 

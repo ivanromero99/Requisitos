@@ -8,4 +8,10 @@ public class HomeControlador {
 		Window.open(new Interfaz.Login());
 	}
 	
+	public static void goToPerfil() {
+		if(!Login.usuario.getRol().getNombre().equals("ONG")){
+			Window.open(new PerfilUsuario());
+		}
+	}
+	
 }

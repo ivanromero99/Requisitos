@@ -141,6 +141,14 @@ public class Home implements OpenableWindow {
 				HomeControlador.goToLogin();
 			}
 		});
+		
+		lblUsuario.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToPerfil();
+			}
+		});
 	}
 
 	public JPanel getWindow() {
