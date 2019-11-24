@@ -184,6 +184,20 @@ public class Login implements OpenableWindow {
 			}
 		});
 		
+		button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				String usuario = textField.getText();
+				String password = String.valueOf(passwordField_1.getPassword());				
+				boolean b = LoginControlador.iniciarSesionONG(usuario, password);
+				if(!b) {
+					label_1.setText("Error al iniciar sesión");
+					textField.setText("");
+					passwordField_1.setText("");
+				} 
+			}
+		});
 		
 		
 	}

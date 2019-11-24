@@ -25,7 +25,7 @@ public class Login {
     
 public static boolean loginONG(String nick, String contraseña) {
     	
-	List<Object[]> resultado = miBD.Select("SELECT * FROM Usuarios WHERE ID='" + nick + "' AND Rol='ONG';");
+	List<Object[]> resultado = miBD.Select("SELECT * FROM Usuarios WHERE ID='" + nick+ "' AND Rol='ONG';");
     	if(resultado.size()!=0 && resultado.get(0)[1].equals(contraseña)) {
     		usuario = new Usuario(nick);
     		System.out.println("Usuario sí existe");

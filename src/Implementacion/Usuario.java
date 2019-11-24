@@ -46,8 +46,12 @@ package Implementacion;
 		        this.ID = (String)tupla[0];
 		        this.password = (String)tupla[1];
 		        this.nombre = (String)tupla[2];
-		        this.apellidos = (String)tupla[3];
-		        this.edad = tupla[4].toString();
+		        if(tupla[3]!=null) {
+		        	this.apellidos = (String)tupla[3];
+		        }
+		        if(tupla[4]!=null) {
+		        	this.edad = tupla[4].toString();
+		        }
 		        this.rol = new Rol((String)tupla[5]);
 		        if(tupla[6]!=null) {
 		        	this.imparte_asignatura = (Integer)tupla[6];
