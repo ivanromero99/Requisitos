@@ -99,6 +99,10 @@ public class MisActividades implements OpenableWindow {
 		}
 		list.setModel(modelo);
 		
+		if(!Implementacion.Login.usuario.getRol().getNombre().equals("ONG")) {
+			btnCrearActividad.setEnabled(false);
+		}
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -212,13 +216,11 @@ public class MisActividades implements OpenableWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				MisActividadesControlador.goToNuevaActividad();
+				if(Implementacion.Login.usuario.getRol().getNombre().equals("ONG")) {
+					MisActividadesControlador.goToNuevaActividad();
+				}
 			}
 		});
-		
-		if(!Implementacion.Login.usuario.getRol().getNombre().equals("ONG")) {
-			btnCrearActividad.setEnabled(false);;
-		}
 		
 		if(Implementacion.Login.usuario == null) {
 			lblUsuario.setVisible(false);

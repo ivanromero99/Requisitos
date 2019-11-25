@@ -189,6 +189,7 @@ public class NuevaActividad implements OpenableWindow {
 		btnEnviar.setBackground(Color.BLUE);
 		
 		textField_2 = new JTextField();
+		textField_2.setToolTipText("");
 		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField_2.setColumns(10);
 		
@@ -208,6 +209,9 @@ public class NuevaActividad implements OpenableWindow {
 		for(Subcategoria s : Subcategoria.ListaSubcategorias()) {
 			comboBox_1.addItem(s.getNombre());
 		}
+		
+		JLabel lblFechaEnFormato = new JLabel("Fecha en formato: AAAA-MM-DD");
+		lblFechaEnFormato.setForeground(Color.RED);
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -257,7 +261,8 @@ public class NuevaActividad implements OpenableWindow {
 														.addComponent(comboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 														.addComponent(textField, GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
 													.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE))
-												.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE))
+												.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblFechaEnFormato, Alignment.LEADING))
 											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 											.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 												.addGroup(gl_panel.createSequentialGroup()
@@ -331,7 +336,9 @@ public class NuevaActividad implements OpenableWindow {
 								.addComponent(lblTurno, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 								.addComponent(rdbtnMaana)
 								.addComponent(rdbtnTarde))
-							.addGap(29)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblFechaEnFormato)
+							.addGap(1)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel.createSequentialGroup()
 									.addComponent(lblFecha, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
