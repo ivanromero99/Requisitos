@@ -2,15 +2,21 @@ package Interfaz;
 
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import Implementacion.Categoria;
+import Implementacion.Subcategoria;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -21,13 +27,32 @@ import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
+import javax.swing.JTextArea;
 
 public class NuevaActividad implements OpenableWindow {
+	
+    private String nombre;
+    private String descripcion;
+    private int horas;
+    private boolean turno;
+    private String fecha;
+    private boolean validada;
+    private boolean voluntariado;
+    private boolean formacion;
+    private boolean investigacion;
+    private int proyecto;
+    private String id_ong;
+    private String profesor;
+    private int asignatura;
+    private String categoria;
+    private String subcategoria;
+    private String lugar;
 	
 	private JPanel panel;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private JTextField textField_3;
 	
 	public NuevaActividad() {
 		panel = new JPanel();
@@ -81,7 +106,7 @@ public class NuevaActividad implements OpenableWindow {
 		lblCategoria.setForeground(Color.BLACK);
 		lblCategoria.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
-		JLabel lblProyecto = new JLabel("Proyecto:");
+		JLabel lblProyecto = new JLabel("Subcategoria:");
 		lblProyecto.setForeground(Color.BLACK);
 		lblProyecto.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
@@ -113,11 +138,11 @@ public class NuevaActividad implements OpenableWindow {
 		rdbtnTarde.setForeground(Color.BLACK);
 		rdbtnTarde.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JRadioButton rdbtnVoluntariado = new JRadioButton("Voluntariado");
+		JRadioButton rdbtnVoluntariado = new JRadioButton("Aprendizaje-Servicio");
 		rdbtnVoluntariado.setForeground(Color.BLACK);
 		rdbtnVoluntariado.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JRadioButton rdbtnFormacin = new JRadioButton("Formaci\u00F3n");
+		JRadioButton rdbtnFormacin = new JRadioButton("Voluntariado");
 		rdbtnFormacin.setForeground(Color.BLACK);
 		rdbtnFormacin.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
@@ -125,21 +150,25 @@ public class NuevaActividad implements OpenableWindow {
 		rdbtnInvestigacin.setForeground(Color.BLACK);
 		rdbtnInvestigacin.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
+		ButtonGroup group = new ButtonGroup();
+		group.add(rdbtnTarde);
+		group.add(rdbtnMaana);
+		
+		ButtonGroup group2 = new ButtonGroup();
+		group2.add(rdbtnInvestigacin);
+		group2.add(rdbtnFormacin);
+		group2.add(rdbtnVoluntariado);
+		
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField.setColumns(10);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		textField_1 = new JTextField();
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -163,17 +192,34 @@ public class NuevaActividad implements OpenableWindow {
 		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField_2.setColumns(10);
 		
+		textField_3 = new JTextField();
+		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textField_3.setColumns(10);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textArea.setWrapStyleWord(true);
+		textArea.setLineWrap(true);
+		
+		for(Categoria c : Categoria.ListaCategorias()) {
+			comboBox.addItem(c.getNombre());
+		}
+		
+		for(Subcategoria s : Subcategoria.ListaSubcategorias()) {
+			comboBox_1.addItem(s.getNombre());
+		}
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addComponent(lblNewLabel)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(56)
 							.addComponent(lblNoticias)
 							.addContainerGap(480, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(635)
 							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 								.addComponent(lblUsuario, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)
@@ -192,13 +238,19 @@ public class NuevaActividad implements OpenableWindow {
 									.addGap(114)
 									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_panel.createSequentialGroup()
+											.addGap(478)
+											.addComponent(btnEnviar, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
+											.addGap(18)
+											.addComponent(btnNewButton)
+											.addPreferredGap(ComponentPlacement.RELATED))
+										.addGroup(gl_panel.createSequentialGroup()
 											.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 												.addComponent(lblNombre)
-												.addComponent(lblProyecto, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
 												.addComponent(lblCategoria, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
 												.addComponent(lblFecha, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblDescripcion, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))
-											.addGap(27)
+												.addComponent(lblDescripcion, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblProyecto, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE))
+											.addGap(18)
 											.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 												.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 													.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
@@ -207,12 +259,12 @@ public class NuevaActividad implements OpenableWindow {
 													.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE))
 												.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE))
 											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-												.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+											.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_panel.createSequentialGroup()
 													.addComponent(lblLugar, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
 													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE))
-												.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+													.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE))
+												.addGroup(gl_panel.createSequentialGroup()
 													.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 														.addComponent(lblTurno, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
 														.addComponent(lblHoras, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
@@ -227,17 +279,10 @@ public class NuevaActividad implements OpenableWindow {
 													.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 														.addComponent(rdbtnTarde, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
 														.addComponent(rdbtnInvestigacin, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)))))
-										.addGroup(gl_panel.createSequentialGroup()
-											.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-												.addGroup(gl_panel.createSequentialGroup()
-													.addComponent(btnEnviar, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
-													.addGap(18)
-													.addComponent(btnNewButton))
-												.addComponent(textPane, GroupLayout.PREFERRED_SIZE, 754, GroupLayout.PREFERRED_SIZE))
-											.addPreferredGap(ComponentPlacement.RELATED))))
+										.addComponent(textArea, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)))
 								.addGroup(gl_panel.createSequentialGroup()
 									.addComponent(lblValidarActividad)
-									.addPreferredGap(ComponentPlacement.RELATED, 871, Short.MAX_VALUE))
+									.addPreferredGap(ComponentPlacement.RELATED, 893, Short.MAX_VALUE))
 								.addComponent(lblMisActividades))
 							.addGap(159))
 						.addComponent(lblCalificarActividad, Alignment.LEADING)))
@@ -272,7 +317,7 @@ public class NuevaActividad implements OpenableWindow {
 								.addComponent(lblNombre)
 								.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblLugar, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-								.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
 							.addGap(29)
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblCategoria, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
@@ -300,15 +345,85 @@ public class NuevaActividad implements OpenableWindow {
 										.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(rdbtnVoluntariado)))
-							.addGap(28)
-							.addComponent(textPane, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)))
-					.addGap(18)
+							.addGap(19)
+							.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)))
+					.addGap(34)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnNewButton)
 						.addComponent(btnEnviar, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(28, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
+		
+		btnEnviar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				
+				nombre = textField.getText();
+				descripcion = textArea.getText();
+				horas = Integer.parseInt(textField_1.getText());
+				if(rdbtnTarde.isSelected()) {
+					turno = true;
+				}
+				if(rdbtnMaana.isSelected()) {
+					turno = false;
+				}
+				fecha = textField_2.getText();
+				validada = false;
+				if(rdbtnVoluntariado.isSelected()) {
+					voluntariado = true;
+				} else {
+					voluntariado = false;
+				}
+				if(rdbtnFormacin.isSelected()) {
+					formacion = true;
+				} else {
+					formacion = false;
+				}
+				if(rdbtnInvestigacin.isSelected()) {
+					investigacion = true;
+				} else {
+					investigacion = false;
+				}
+				proyecto = 0;
+				id_ong = Implementacion.Login.usuario.getID();
+				profesor = null;
+				asignatura = 0;
+				categoria = comboBox.getSelectedItem().toString();
+				subcategoria = comboBox_1.getSelectedItem().toString(); 
+				lugar = textField_3.getText();
+				
+				NuevaActividadControlador.guardarActividad(nombre, descripcion, horas, turno, fecha, validada, voluntariado, formacion, 
+														   investigacion, proyecto, id_ong, profesor, asignatura, categoria, subcategoria, lugar);
+				NuevaActividadControlador.goToMisActividades();
+			}
+		});
+		
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				NuevaActividadControlador.goToMisActividades();
+			}
+		});
+		
+		lblUsuario.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToPerfil();
+			}
+		});
+		
+		if(Implementacion.Login.usuario == null) {
+			lblUsuario.setVisible(false);
+			lblIniciarSesin.setVisible(true);
+		} else {
+			lblIniciarSesin.setVisible(false);
+			lblUsuario.setVisible(true);
+			lblUsuario.setText(Implementacion.Login.usuario.getID());
+		}
 	}
 
 	public JPanel getWindow() {

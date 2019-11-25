@@ -17,9 +17,9 @@ public class Actividad {
     private boolean formacion;
     private boolean investigacion;
     private int proyecto;
-    private int ID_ONG;
+    private String ID_ONG;
     private String profesor;
-    private int asignatura;
+    private String asignatura;
     private String categoria;
     private String subcategoria;
     private String lugar;
@@ -71,7 +71,7 @@ public class Actividad {
 			}
 			
 			if(tupla[5] != null) {
-				this.fecha = (String)tupla[5];
+				this.fecha = String.valueOf(tupla[5]);
 			}
 			if(tupla[6] != null) {
 				if(((boolean) tupla[6]) == false) { 
@@ -105,30 +105,30 @@ public class Actividad {
 				this.proyecto = (Integer)tupla[10];
 			}
 			if(tupla[11] != null) {
-				this.ID_ONG = (Integer)tupla[11];
-			}
-			if(tupla[12] != null) {
 				this.profesor = (String)tupla[12];
 			}
-			if(tupla[13] != null) {
-				this.asignatura = (Integer)tupla[13];
+			if(tupla[12] != null) {
+				this.asignatura = (String)tupla[13];
 			}
-			if(tupla[14] != null) {
+			if(tupla[13] != null) {
 				this.categoria = (String)tupla[14];
 			}
-			if(tupla[15] != null) {
+			if(tupla[14] != null) {
 				this.subcategoria = (String)tupla[15];
 			}
-			if(tupla[16] != null) {
+			if(tupla[15] != null) {
 				this.lugar = (String)tupla[16];
+			}
+			if(tupla[16] != null) {
+				this.ID_ONG = (String)tupla[16];
 			}
 		}
 	 
-	 public Actividad(int id,String nombre, String descripcion, int horas, boolean turno, String fecha,boolean validada,boolean voluntariado, boolean formacion, boolean investigacion,int proyecto, int id_ong,String profesor,int asignatura, String categoria, String subcategoria, String lugar)
+	 public Actividad(int id,String nombre, String descripcion, int horas, boolean turno, String fecha,boolean validada,boolean voluntariado, boolean formacion, boolean investigacion,int proyecto, String id_ong,String profesor,int asignatura, String categoria, String subcategoria, String lugar)
 	    {
 			// Crea el objeto y lo inserta en la base de datos
 	    	BD miBD = new BD(BD_SERVER,BD_NAME);		
-	    	miBD.Insert("INSERT INTO Usuarios VALUES('"+id+"', '"+ nombre +"', '" + descripcion + "', "+ horas + ", '" + turno + "', '" + fecha + "','" + validada + "','" + voluntariado + "','" + formacion + "','" + investigacion + "', " + proyecto + ", " + id_ong + ",' " + profesor + "'," + asignatura + ",'" + categoria + "','" + subcategoria + "','"+ lugar + "'"  + ");" );			
+	    	miBD.Insert("INSERT INTO Actividades VALUES('"+id+"', '"+ nombre +"', '" + descripcion + "', "+ horas + ", '" + turno + "', '" + fecha + "','" + validada + "','" + voluntariado + "','" + formacion + "','" + investigacion + "', " + proyecto + ",null " + "," + asignatura + ",'" + categoria + "','" + subcategoria + "','"+ lugar + "','" + id_ong + "');" );			
 	    	
 	    	this.ID = id;
 	    	this.Nombre = nombre;
@@ -143,7 +143,7 @@ public class Actividad {
 	    	this.proyecto = proyecto;
 	    	this.ID_ONG = id_ong;
 	    	this.profesor = profesor;
-	    	this.asignatura = asignatura;
+	    	this.asignatura = String.valueOf(asignatura);
 	    	this.categoria = categoria;
 	    	this.subcategoria = subcategoria;
 	    	this.lugar = lugar;
@@ -350,12 +350,12 @@ public class Actividad {
 	    	this.proyecto= value; 
 	    }
 	    
-	    public int getid_ong() 
+	    public String getid_ong() 
 	    { 
 	    	return this.ID_ONG; 
 	    }
 	    
-	    public void setid_ong(int value) 
+	    public void setid_ong(String value) 
 	    { 
 	    	
 			// Actualiza el atributo en memoria y en la base de datos
@@ -382,7 +382,7 @@ public class Actividad {
 	    	this.profesor= value; 
 	    }
 	    
-	    public int getAsignatura() 
+	    public String getAsignatura() 
 	    { 
 	    	return this.asignatura; 
 	    }
@@ -395,7 +395,7 @@ public class Actividad {
 	    	miBD.Update("UPDATE Actividades SET Asignatura = '" + value 
 	    			+ "' WHERE ID ='"+ this.ID + "';");
 	    	
-	    	this.asignatura= value; 
+	    	this.asignatura= String.valueOf(value); 
 	    }
 	    
 	    public String getCategoria() 

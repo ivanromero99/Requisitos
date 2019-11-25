@@ -2,10 +2,14 @@ package Interfaz;
 
 import Implementacion.Login;
 
-public class HomeControlador {
+public class MisActividadesControlador {
 
 	public static void goToLogin() {
 		Window.open(new Interfaz.Login());
+	}
+	
+	public static void goToNuevaActividad() {
+		Window.open(new NuevaActividad());
 	}
 	
 	public static void goToPerfil() {
@@ -16,8 +20,8 @@ public class HomeControlador {
 		}
 	}
 	
-	public static void goToMisActividades() {
-		Window.open(new MisActividades());
+	public static void goToHome() {
+		Window.open(new Home());
 	}
 	
 }
