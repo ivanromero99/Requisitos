@@ -87,8 +87,7 @@ package Implementacion;
 	    {
 			// Crea el objeto y lo inserta en la base de datos
 	    	BD miBD = new BD(BD_SERVER,BD_NAME);		
-	    	
-	    	miBD.Insert("INSERT INTO Usuarios VALUES(" + "'" + id + "', '" + pass + "', '" + nombre + "', '" + "'" + apellidos + "', NULL, '" + "'" + rol.getNombre() + "', NULL,NULL,NULL,NULL,NULL,NULL" +  "');" );			
+	    	miBD.Insert("INSERT INTO Usuarios VALUES('"+id+"', '"+pass+"', '"+nombre+"', '"+apellidos+"', NULL, '"+rol.getNombre()+"', NULL,NULL,NULL,NULL,NULL,NULL);" );			
 	    	
 	    	this.ID = id;
 	    	this.password = pass;
@@ -96,8 +95,8 @@ package Implementacion;
 	        this.apellidos = apellidos;
 	        this.edad = (String)null;
 	        this.rol = rol;
-	        this.imparte_asignatura = (Integer)null;
-	        this.turno_preferente = (Boolean)null;
+	        this.imparte_asignatura = 0;
+	        this.turno_preferente = false;
 	        this.subcategoria_preferente = null;
 	        this.categoria_preferente = null;
 	        this.descripcion_ONG = (String)null;
@@ -329,5 +328,4 @@ package Implementacion;
 			return this.ID.compareToIgnoreCase(u.ID);	
 		}
 	}
-
 
