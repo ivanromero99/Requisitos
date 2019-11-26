@@ -155,8 +155,13 @@ public class PerfilUsuario implements OpenableWindow {
 			comboBox_1.addItem(s.getNombre());
 		}
 		
-		comboBox.setSelectedItem(Login.usuario.getCategoria().getNombre());
-		comboBox_1.setSelectedItem(Login.usuario.getSubcategoria().getNombre());
+		if(Login.usuario.getCategoria() != null) {
+			comboBox.setSelectedItem(Login.usuario.getCategoria().getNombre());
+		}
+		if(Login.usuario.getSubcategoria() != null) {
+			comboBox_1.setSelectedItem(Login.usuario.getSubcategoria().getNombre());
+		}
+		
 		
 		ButtonGroup group = new ButtonGroup();
 		group.add(rdbtnTarde);
