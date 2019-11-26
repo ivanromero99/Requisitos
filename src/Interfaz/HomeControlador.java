@@ -20,4 +20,9 @@ public class HomeControlador {
 		Window.open(new MisActividades());
 	}
 	
+	public static void goToHome() {
+		Implementacion.Login.usuario = null;
+		Window.open(new Home());
+	}
+	
 }

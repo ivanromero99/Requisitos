@@ -69,6 +69,11 @@ public class Home implements OpenableWindow {
 		lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
+		JLabel lblCerrarSesin = new JLabel("Cerrar Sesi\u00F3n");
+		lblCerrarSesin.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCerrarSesin.setForeground(Color.RED);
+		lblCerrarSesin.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -83,7 +88,8 @@ public class Home implements OpenableWindow {
 							.addGap(631)
 							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 								.addComponent(lblUsuario, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblIniciarSesin, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblIniciarSesin, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCerrarSesin, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
 							.addGap(28))))
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(33)
@@ -94,11 +100,11 @@ public class Home implements OpenableWindow {
 						.addComponent(lblValidarActividad)
 						.addComponent(lblCalificarActividad)
 						.addComponent(lblInicio, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(328, Short.MAX_VALUE))
+					.addContainerGap(957, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
@@ -119,7 +125,9 @@ public class Home implements OpenableWindow {
 							.addComponent(lblIniciarSesin)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblUsuario)
-							.addGap(69)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblCerrarSesin, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+							.addGap(45)
 							.addComponent(lblNoticias)))
 					.addContainerGap(136, Short.MAX_VALUE))
 		);
@@ -127,10 +135,12 @@ public class Home implements OpenableWindow {
 		
 		if(Implementacion.Login.usuario == null) {
 			lblUsuario.setVisible(false);
+			lblCerrarSesin.setVisible(false);
 			lblIniciarSesin.setVisible(true);
 		} else {
 			lblIniciarSesin.setVisible(false);
 			lblUsuario.setVisible(true);
+			lblCerrarSesin.setVisible(true);
 			lblUsuario.setText(Implementacion.Login.usuario.getID());
 		}
 		
@@ -155,6 +165,14 @@ public class Home implements OpenableWindow {
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
 				HomeControlador.goToMisActividades();
+			}
+		});
+		
+		lblCerrarSesin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToHome();
 			}
 		});
 	}
