@@ -213,6 +213,10 @@ public class NuevaActividad implements OpenableWindow {
 		JLabel lblFechaEnFormato = new JLabel("Fecha en formato: AAAA-MM-DD");
 		lblFechaEnFormato.setForeground(Color.RED);
 		
+		JLabel lblNewLabel_1 = new JLabel("Error. Por favor rellene correctamente los campos");
+		lblNewLabel_1.setForeground(Color.RED);
+		lblNewLabel_1.setVisible(false);
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
@@ -242,11 +246,12 @@ public class NuevaActividad implements OpenableWindow {
 									.addGap(114)
 									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addGap(478)
+											.addGap(71)
+											.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 358, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
 											.addComponent(btnEnviar, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
 											.addGap(18)
-											.addComponent(btnNewButton)
-											.addPreferredGap(ComponentPlacement.RELATED))
+											.addComponent(btnNewButton))
 										.addGroup(gl_panel.createSequentialGroup()
 											.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 												.addComponent(lblNombre)
@@ -354,11 +359,17 @@ public class NuevaActividad implements OpenableWindow {
 									.addComponent(rdbtnVoluntariado)))
 							.addGap(19)
 							.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)))
-					.addGap(34)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnNewButton)
-						.addComponent(btnEnviar, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(28, Short.MAX_VALUE))
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(34)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnNewButton)
+								.addComponent(btnEnviar, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+							.addContainerGap(28, Short.MAX_VALUE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblNewLabel_1)
+							.addContainerGap())))
 		);
 		panel.setLayout(gl_panel);
 		
@@ -367,43 +378,52 @@ public class NuevaActividad implements OpenableWindow {
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
 				
-				nombre = textField.getText();
-				descripcion = textArea.getText();
-				horas = Integer.parseInt(textField_1.getText());
-				if(rdbtnTarde.isSelected()) {
-					turno = true;
-				}
-				if(rdbtnMaana.isSelected()) {
-					turno = false;
-				}
-				fecha = textField_2.getText();
-				validada = false;
-				if(rdbtnVoluntariado.isSelected()) {
-					voluntariado = true;
+				if(!textField.getText().equals("") && !textField_1.getText().equals("") && !textField_2.getText().equals("") && 
+					!textField_3.getText().equals("") && !textArea.getText().equals("")) {
+					
+					
+					nombre = textField.getText();
+					descripcion = textArea.getText();
+					horas = Integer.parseInt(textField_1.getText());
+					if(rdbtnTarde.isSelected()) {
+						turno = true;
+					}
+					if(rdbtnMaana.isSelected()) {
+						turno = false;
+					}
+					fecha = textField_2.getText();
+					validada = false;
+					if(rdbtnVoluntariado.isSelected()) {
+						voluntariado = true;
+					} else {
+						voluntariado = false;
+					}
+					if(rdbtnFormacin.isSelected()) {
+						formacion = true;
+					} else {
+						formacion = false;
+					}
+					if(rdbtnInvestigacin.isSelected()) {
+						investigacion = true;
+					} else {
+						investigacion = false;
+					}
+					proyecto = 0;
+					id_ong = Implementacion.Login.usuario.getID();
+					profesor = null;
+					asignatura = 0;
+					categoria = comboBox.getSelectedItem().toString();
+					subcategoria = comboBox_1.getSelectedItem().toString(); 
+					lugar = textField_3.getText();
+					
+					NuevaActividadControlador.guardarActividad(nombre, descripcion, horas, turno, fecha, validada, voluntariado, formacion, 
+															   investigacion, proyecto, id_ong, profesor, asignatura, categoria, subcategoria, lugar);
+					NuevaActividadControlador.goToMisActividades();
+					
 				} else {
-					voluntariado = false;
+					lblNewLabel_1.setVisible(true);
 				}
-				if(rdbtnFormacin.isSelected()) {
-					formacion = true;
-				} else {
-					formacion = false;
-				}
-				if(rdbtnInvestigacin.isSelected()) {
-					investigacion = true;
-				} else {
-					investigacion = false;
-				}
-				proyecto = 0;
-				id_ong = Implementacion.Login.usuario.getID();
-				profesor = null;
-				asignatura = 0;
-				categoria = comboBox.getSelectedItem().toString();
-				subcategoria = comboBox_1.getSelectedItem().toString(); 
-				lugar = textField_3.getText();
 				
-				NuevaActividadControlador.guardarActividad(nombre, descripcion, horas, turno, fecha, validada, voluntariado, formacion, 
-														   investigacion, proyecto, id_ong, profesor, asignatura, categoria, subcategoria, lugar);
-				NuevaActividadControlador.goToMisActividades();
 			}
 		});
 		
