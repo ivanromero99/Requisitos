@@ -316,7 +316,7 @@ public class PerfilUsuario implements OpenableWindow {
 				Categoria cat = new Categoria(comboBox.getSelectedItem().toString());
 				Subcategoria subcat = new Subcategoria(comboBox_1.getSelectedItem().toString());
 				PerfilUsuarioControlador.guardarPerfil(textField_1.getText(), textField_2.getText(), textField_3.getText(), cat, subcat, turno);
-				PerfilUsuarioControlador.goToHome();
+				HomeControlador.goToHome();
 			}
 		});
 		
@@ -324,7 +324,7 @@ public class PerfilUsuario implements OpenableWindow {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				PerfilUsuarioControlador.goToHome();
+				HomeControlador.goToHome();
 			}
 		});
 	

@@ -3,10 +3,6 @@ package Interfaz;
 import Implementacion.Login;
 
 public class MisActividadesControlador {
-
-	public static void goToLogin() {
-		Window.open(new Interfaz.Login());
-	}
 	
 	public static void goToNuevaActividad() {
 		Window.open(new NuevaActividad());
@@ -18,10 +14,6 @@ public class MisActividadesControlador {
 		} else {
 			Window.open(new PerfilONG());
 		}
-	}
-	
-	public static void goToHome() {
-		Window.open(new Home());
 	}
 	
 }

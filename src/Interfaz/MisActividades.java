@@ -208,7 +208,7 @@ public class MisActividades implements OpenableWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				MisActividadesControlador.goToHome();
+				HomeControlador.goToHome();
 			}
 		});
 		

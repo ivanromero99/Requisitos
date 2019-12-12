@@ -213,7 +213,7 @@ public class PerfilONG implements OpenableWindow {
 			public void actionPerformed(ActionEvent event) {
 				
 				PerfilONGControlador.guardarPerfil(textField_1.getText(), textField_2.getText(), textArea.getText());
-				PerfilONGControlador.goToHome();
+				HomeControlador.goToHome();
 			}
 		});
 		
@@ -221,7 +221,7 @@ public class PerfilONG implements OpenableWindow {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				PerfilUsuarioControlador.goToHome();
+				HomeControlador.goToHome();
 			}
 		});
 	

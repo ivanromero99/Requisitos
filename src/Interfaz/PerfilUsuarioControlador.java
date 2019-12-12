@@ -5,10 +5,6 @@ import Implementacion.Categoria;
 import Implementacion.Subcategoria;
 
 public class PerfilUsuarioControlador {
-
-	public static void goToHome() {
-		Window.open(new Home());
-	}
 	
 	public static void guardarPerfil(String nombre, String apellidos, String edad, Categoria categoria, Subcategoria subcategoria, boolean turno) {
 		Login.usuario.setNombre(nombre);

@@ -16,13 +16,23 @@ public class HomeControlador {
 		}
 	}
 	
+	public static void goToValidarActividad() {
+		if(!Login.usuario.getRol().getNombre().equals("Gestor")){
+			Window.open(new ListaSinValidar());
+		}
+	}
+	
 	public static void goToMisActividades() {
 		Window.open(new MisActividades());
 	}
 	
-	public static void goToHome() {
+	public static void goToHomeCerrarSesion() {
 		Implementacion.Login.usuario = null;
 		Window.open(new Home());
 	}
 	
+	
+	public static void goToHome() {
+		Window.open(new Home());
+	}
 }

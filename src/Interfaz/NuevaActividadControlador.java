@@ -6,10 +6,6 @@ import Implementacion.Actividad;
 import Implementacion.Login;
 
 public class NuevaActividadControlador {
-
-	public static void goToMisActividades() {
-		Window.open(new MisActividades());
-	}
 	
 	public static void guardarActividad(String nombre, String descripcion, int horas, boolean turno, String fecha,boolean validada,
 										boolean voluntariado, boolean formacion, boolean investigacion,int proyecto, String id_ong,String profesor,

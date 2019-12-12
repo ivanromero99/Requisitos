@@ -343,14 +343,19 @@ public class Actividad {
 	    { 
 	    	
 			// Actualiza el atributo en memoria y en la base de datos
-	    	BD miBD = new BD(BD_SERVER,BD_NAME);
-	    	miBD.Update("UPDATE Actividades SET Proyecto = '" + value 
-	    			+ "' WHERE ID ='"+ this.ID + "';");
+	    	//BD miBD = new BD(BD_SERVER,BD_NAME);
+	    	//miBD.Update("UPDATE Actividades SET Proyecto = '" + value 
+	    	//		+ "' WHERE ID ='"+ this.ID + "';");
 	    	
 	    	this.proyecto= value; 
 	    }
 	    
-	    public String getid_ong() 
+	    @Override
+		public String toString() {
+			return this.Nombre;
+		}
+
+		public String getid_ong() 
 	    { 
 	    	return this.ID_ONG; 
 	    }
@@ -444,6 +449,13 @@ public class Actividad {
 	    			+ "' WHERE ID ='"+ this.ID + "';");
 	    	
 	    	this.lugar= value; 
+	    }
+	    
+	    public static int saberID(String nombre) {
+	    	
+	    	BD miBD = new BD(BD_SERVER,BD_NAME);
+	    	Object[] tupla = miBD.Select("SELECT ID FROM Actividades " + "WHERE Nombre='"+nombre+ "';").get(0);
+	    	return (int)tupla[0];
 	    }
 	    
 	    
