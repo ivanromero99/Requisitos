@@ -35,4 +35,8 @@ public class LoginControlador {
 			return false;
 		}
 	}
+	
+	public static void goToIduma() {
+		Window.open(new iDUMA());
+	}
 }
