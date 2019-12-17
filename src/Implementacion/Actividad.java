@@ -19,7 +19,7 @@ public class Actividad {
     private int proyecto;
     private String ID_ONG;
     private String profesor;
-    private String asignatura;
+    private int asignatura;
     private String categoria;
     private String subcategoria;
     private String lugar;
@@ -105,19 +105,19 @@ public class Actividad {
 				this.proyecto = (Integer)tupla[10];
 			}
 			if(tupla[11] != null) {
-				this.profesor = (String)tupla[12];
+				this.profesor = (String)tupla[11];
 			}
 			if(tupla[12] != null) {
-				this.asignatura = (String)tupla[13];
+				this.asignatura = (Integer)tupla[12];
 			}
 			if(tupla[13] != null) {
-				this.categoria = (String)tupla[14];
+				this.categoria = (String)tupla[13];
 			}
 			if(tupla[14] != null) {
-				this.subcategoria = (String)tupla[15];
+				this.subcategoria = (String)tupla[14];
 			}
 			if(tupla[15] != null) {
-				this.lugar = (String)tupla[16];
+				this.lugar = (String)tupla[15];
 			}
 			if(tupla[16] != null) {
 				this.ID_ONG = (String)tupla[16];
@@ -143,7 +143,7 @@ public class Actividad {
 	    	this.proyecto = proyecto;
 	    	this.ID_ONG = id_ong;
 	    	this.profesor = profesor;
-	    	this.asignatura = String.valueOf(asignatura);
+	    	this.asignatura = asignatura;
 	    	this.categoria = categoria;
 	    	this.subcategoria = subcategoria;
 	    	this.lugar = lugar;
@@ -343,9 +343,9 @@ public class Actividad {
 	    { 
 	    	
 			// Actualiza el atributo en memoria y en la base de datos
-	    	//BD miBD = new BD(BD_SERVER,BD_NAME);
-	    	//miBD.Update("UPDATE Actividades SET Proyecto = '" + value 
-	    	//		+ "' WHERE ID ='"+ this.ID + "';");
+	    	BD miBD = new BD(BD_SERVER,BD_NAME);
+	    	miBD.Update("UPDATE Actividades SET Proyecto = '" + value 
+	    			+ "' WHERE ID ='"+ this.ID + "';");
 	    	
 	    	this.proyecto= value; 
 	    }
@@ -387,7 +387,7 @@ public class Actividad {
 	    	this.profesor= value; 
 	    }
 	    
-	    public String getAsignatura() 
+	    public int getAsignatura() 
 	    { 
 	    	return this.asignatura; 
 	    }
@@ -400,7 +400,7 @@ public class Actividad {
 	    	miBD.Update("UPDATE Actividades SET Asignatura = '" + value 
 	    			+ "' WHERE ID ='"+ this.ID + "';");
 	    	
-	    	this.asignatura= String.valueOf(value); 
+	    	this.asignatura= value; 
 	    }
 	    
 	    public String getCategoria() 

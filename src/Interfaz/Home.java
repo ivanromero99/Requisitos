@@ -74,6 +74,19 @@ public class Home implements OpenableWindow {
 		lblCerrarSesin.setForeground(Color.RED);
 		lblCerrarSesin.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
+		JLabel lblGestin = new JLabel("Gesti\u00F3n");
+		lblGestin.setForeground(Color.BLUE);
+		lblGestin.setFont(new Font("Tahoma", Font.BOLD, 18));
+		if(Implementacion.Login.usuario != null) {
+			if(!Implementacion.Login.usuario.getRol().getNombre().equalsIgnoreCase("Gestor")) {
+				lblGestin.setEnabled(false);
+			} else {
+				lblGestin.setEnabled(true);
+			}
+		} else {
+			lblGestin.setEnabled(false);
+		}
+				
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -94,6 +107,7 @@ public class Home implements OpenableWindow {
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(33)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblGestin, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblBusqueda)
 						.addComponent(lblMatches)
 						.addComponent(lblMisActividades)
@@ -129,7 +143,9 @@ public class Home implements OpenableWindow {
 							.addComponent(lblCerrarSesin, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 							.addGap(45)
 							.addComponent(lblNoticias)))
-					.addContainerGap(136, Short.MAX_VALUE))
+					.addGap(28)
+					.addComponent(lblGestin, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(86, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		
@@ -168,6 +184,13 @@ public class Home implements OpenableWindow {
 			}
 		});
 		
+		lblMatches.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToMatches();
+			}
+		});
 		lblCerrarSesin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -181,6 +204,14 @@ public class Home implements OpenableWindow {
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
 				HomeControlador.goToValidarActividad();
+			}
+		});
+		
+		lblGestin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToGestionar();
 			}
 		});
 	}

@@ -18,7 +18,7 @@ public class Proyecto {
 					
 		for(Object[] tupla: miBD.Select("SELECT ID FROM Proyectos;"))
 		{
-			int id = (Integer)tupla[0];
+			int id = (int)tupla[0];
 			Proyecto c = new Proyecto(id);
 			lista.add(c);
 		}
@@ -44,5 +44,12 @@ public class Proyecto {
 
 	public int getID() {
 		return this.ID;
+	}
+	
+	public static int saberID(String nombre) {
+		BD miBD = new BD(BD_SERVER,BD_NAME);			
+		  
+		Object[] tupla = miBD.Select("SELECT ID FROM Proyectos " + "WHERE Nombre='"+nombre+ "';").get(0);
+		return (int)tupla[0];
 	}
 }

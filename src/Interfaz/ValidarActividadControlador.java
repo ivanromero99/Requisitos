@@ -10,6 +10,8 @@ public class ValidarActividadControlador {
 	public static void goToListaSinValidar() {
 		Window.open(new ListaSinValidar());
 	}
+	
+	
 
 	
 }

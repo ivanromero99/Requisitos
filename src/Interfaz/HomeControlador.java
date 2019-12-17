@@ -22,6 +22,12 @@ public class HomeControlador {
 		}
 	}
 	
+	public static void goToMatches() {
+		if(!Login.usuario.getRol().getNombre().equals("ONG")){
+			Window.open(new Matches());
+		}
+	}
+	
 	public static void goToMisActividades() {
 		Window.open(new MisActividades());
 	}
@@ -29,6 +35,12 @@ public class HomeControlador {
 	public static void goToHomeCerrarSesion() {
 		Implementacion.Login.usuario = null;
 		Window.open(new Home());
+	}
+	
+	public static void goToGestionar() {
+		if(Login.usuario.getRol().getNombre().equalsIgnoreCase("Gestor")) {
+			Window.open(new Gestionar());
+		}
 	}
 	
 	

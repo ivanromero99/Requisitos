@@ -16,19 +16,20 @@ public class Asignatura {
 		BD miBD = new BD(BD_SERVER,BD_NAME);
 		ArrayList<Asignatura> lista = new ArrayList<Asignatura>(); 
 					
-		for(Object[] tupla: miBD.Select("SELECT * FROM Asignaturas;"))
+		for(Object[] tupla: miBD.Select("SELECT ID FROM Asignaturas;"))
 		{
-			String id = (String)tupla[1];
+			int id = (Integer)tupla[0];
 			Asignatura c = new Asignatura(id);
 			lista.add(c);
 		}
 		return lista;
 	}
 	
-	public Asignatura(String nombre) {
+	public Asignatura(int id) {
 		BD miBD = new BD(BD_SERVER,BD_NAME);			
 		  
-		Object[] tupla = miBD.Select("SELECT * FROM Asignaturas " + "WHERE Nombre='"+nombre+ "';").get(0);
+		Object[] tupla = miBD.Select("SELECT * FROM Asignaturas " + "WHERE ID='"+id+ "';").get(0);
+		this.ID = (Integer)tupla[0];
 		this.asignatura = (String)tupla[1];
 	}
 	
@@ -41,4 +42,10 @@ public class Asignatura {
 		return this.asignatura;
 	}
 
+	public static int saberID(String nombre) {
+		BD miBD = new BD(BD_SERVER,BD_NAME);			
+		  
+		Object[] tupla = miBD.Select("SELECT ID FROM Asignaturas " + "WHERE Nombre='"+nombre+ "';").get(0);
+		return (int)tupla[0];
+	}
 }

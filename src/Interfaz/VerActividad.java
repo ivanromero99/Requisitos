@@ -10,8 +10,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.SwingConstants;
+
+import org.json.JSONException;
+
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -20,6 +26,7 @@ import Implementacion.Asignatura;
 import Implementacion.Categoria;
 import Implementacion.Proyecto;
 import Implementacion.Subcategoria;
+import Implementacion.parteJSON;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -32,7 +39,7 @@ import javax.swing.JTextPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 
-public class ValidarActividad implements OpenableWindow {
+public class VerActividad implements OpenableWindow {
 	
 	private JPanel panel;
 	private JTextField textField;
@@ -41,14 +48,16 @@ public class ValidarActividad implements OpenableWindow {
 	private JTextField textField_2;
 	private JTextField textField_4;
 	private Actividad actividad;
+	private JTextField textField_5;
+	private JTextField textField_6;
 	
-	public ValidarActividad(Actividad a) {
+	public VerActividad(Actividad a) {
 		panel = new JPanel();
 		panel.setForeground(Color.LIGHT_GRAY);
 		actividad = a;
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(ValidarActividad.class.getResource("/Interfaz/Logos/LogoUma.png")));
+		lblNewLabel.setIcon(new ImageIcon(VerActividad.class.getResource("/Interfaz/Logos/LogoUma.png")));
 		
 		JLabel lblInicio = new JLabel("Inicio");
 		lblInicio.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -74,7 +83,7 @@ public class ValidarActividad implements OpenableWindow {
 		lblCalificarActividad.setForeground(Color.BLUE);
 		lblCalificarActividad.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
-		JLabel lblNoticias = new JLabel("NUEVA ACTIVIDAD");
+		JLabel lblNoticias = new JLabel("ACTIVIDAD");
 		lblNoticias.setFont(new Font("Tahoma", Font.BOLD, 40));
 		lblNoticias.setForeground(Color.BLACK);
 		
@@ -172,12 +181,12 @@ public class ValidarActividad implements OpenableWindow {
 		lblTurno.setForeground(Color.BLACK);
 		lblTurno.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
-		JButton btnNewButton = new JButton("CANCELAR");
+		JButton btnNewButton = new JButton("VOLVER");
 		btnNewButton.setBackground(Color.BLUE);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnNewButton.setForeground(Color.WHITE);
 		
-		JButton btnValidar = new JButton("VALIDAR");
+		JButton btnValidar = new JButton("PARTICIPAR");
 		btnValidar.setForeground(Color.WHITE);
 		btnValidar.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnValidar.setBackground(Color.BLUE);
@@ -195,25 +204,13 @@ public class ValidarActividad implements OpenableWindow {
 		textArea.setText(a.getDescripcion());
 		textArea.setEditable(false);
 		
-		JLabel lblNewLabel_1 = new JLabel("Error. Por favor rellene correctamente los campos");
+		JLabel lblNewLabel_1 = new JLabel("La inscripci\u00F3n no puede realizarse debido a que no cursa la asignatura");
 		lblNewLabel_1.setForeground(Color.RED);
 		lblNewLabel_1.setVisible(false);
-		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		for(Proyecto p : Proyecto.ListaProyectos()) {
-			comboBox_2.addItem(p);
-		}
 		
 		JLabel lblAsignatura = new JLabel("Asignatura:");
 		lblAsignatura.setForeground(Color.BLACK);
 		lblAsignatura.setFont(new Font("Tahoma", Font.BOLD, 16));
-		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		for(Asignatura as : Asignatura.ListaAsignaturas()) {
-			comboBox_3.addItem(as);
-		}
 		
 		textField_2 = new JTextField();
 		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -227,6 +224,34 @@ public class ValidarActividad implements OpenableWindow {
 		textField_4.setText(a.getsubCategoria());
 		textField_4.setEditable(false);
 		
+		textField_5 = new JTextField();
+		textField_5.setText((String) null);
+		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textField_5.setEditable(false);
+		textField_5.setColumns(10);
+		Proyecto p = new Proyecto(a.getProyecto());
+		textField_5.setText(p.getNombre());
+		
+		textField_6 = new JTextField();
+		textField_6.setText((String) null);
+		textField_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textField_6.setEditable(false);
+		textField_6.setColumns(10);
+		Asignatura asig = new Asignatura(a.getAsignatura());
+		textField_6.setText(asig.getNombre());
+		
+		if(a.getFormacion()) {
+			rdbtnFormacin.setSelected(true);
+		}
+		
+		if(a.getVoluntariado()) {
+			rdbtnVoluntariado.setSelected(true);
+		}
+		
+		if(a.getInvestigacion()) {
+			rdbtnInvestigacin.setSelected(true);
+		}
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
@@ -236,7 +261,7 @@ public class ValidarActividad implements OpenableWindow {
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(56)
 							.addComponent(lblNoticias)
-							.addContainerGap(480, Short.MAX_VALUE))
+							.addContainerGap(632, Short.MAX_VALUE))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(635)
 							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
@@ -256,35 +281,35 @@ public class ValidarActividad implements OpenableWindow {
 										.addComponent(lblMatches)
 										.addComponent(lblValidarActividad))
 									.addGap(113)
-									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addGap(71)
-											.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 358, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
-											.addComponent(btnValidar, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
+											.addGap(12)
+											.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 417, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+											.addComponent(btnValidar)
 											.addGap(18)
 											.addComponent(btnNewButton))
 										.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-										.addComponent(lblDescripcion, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+											.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
 												.addGroup(gl_panel.createSequentialGroup()
 													.addComponent(lblAsignatura, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
 													.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-													.addComponent(comboBox_3, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE))
-												.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+													.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE))
+												.addGroup(gl_panel.createSequentialGroup()
 													.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 														.addComponent(lblNombre)
 														.addComponent(lblCategoria, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
 														.addComponent(lblFecha, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
 														.addComponent(lblProyecto, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE))
 													.addGap(18)
-													.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-														.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
-														.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-															.addComponent(textField, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
-															.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
-															.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)))))
+													.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+														.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+															.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
+															.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+																.addComponent(textField, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
+																.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)))
+														.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE))))
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 												.addGroup(gl_panel.createSequentialGroup()
@@ -305,7 +330,8 @@ public class ValidarActividad implements OpenableWindow {
 													.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 													.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 														.addComponent(rdbtnTarde, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-														.addComponent(rdbtnInvestigacin, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE))))))))
+														.addComponent(rdbtnInvestigacin, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)))))
+										.addComponent(lblDescripcion, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))))
 							.addGap(159))
 						.addComponent(lblCalificarActividad, Alignment.LEADING)))
 		);
@@ -355,32 +381,29 @@ public class ValidarActividad implements OpenableWindow {
 								.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
 							.addGap(29)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-									.addComponent(lblFecha, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-									.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblFecha, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_panel.createSequentialGroup()
 									.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 										.addComponent(rdbtnInvestigacin)
 										.addComponent(lblTipo, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-										.addComponent(rdbtnFormacin))
+										.addComponent(rdbtnFormacin)
+										.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(rdbtnVoluntariado)))
 							.addGap(1)
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblAsignatura, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-								.addComponent(comboBox_3, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+								.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
 							.addGap(27)
 							.addComponent(lblDescripcion, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(34)
-							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnNewButton)
-								.addComponent(btnValidar, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
-						.addComponent(lblNewLabel_1, Alignment.TRAILING))
+					.addGap(34)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+							.addComponent(btnNewButton)
+							.addComponent(btnValidar, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		panel.setLayout(gl_panel);
@@ -389,7 +412,7 @@ public class ValidarActividad implements OpenableWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				ValidarActividadControlador.goToListaSinValidar();
+				HomeControlador.goToHome();
 			}
 		});
 		
@@ -397,21 +420,29 @@ public class ValidarActividad implements OpenableWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				if(rdbtnFormacin.isSelected()) {
-					a.setFormacion(true);
+				boolean puedo = true;
+				Asignatura aux = new Asignatura(a.getAsignatura());
+				List<String> lista = new ArrayList<>();
+				try {
+					lista = parteJSON.getAsignaturasDadoUsuario(Implementacion.Login.usuario.getID(), Implementacion.Login.usuario.getPass());
+				} catch (JSONException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-				if(rdbtnInvestigacin.isSelected()) {
-					a.setInvestigacion(true);
+				
+				if(a.getFormacion()) {
+					for(String asignatura : lista) {
+						if(!asignatura.equals(aux.getNombre())){
+							puedo = false;;
+						}
+					}
 				}
-				if(rdbtnVoluntariado.isSelected()) {
-					a.setVoluntariado(true);
+				
+				if(puedo) {
+					VerActividadControlador.inscribir(Implementacion.Login.usuario, a);
+				} else {
+					lblNewLabel_1.setVisible(true);
 				}
-				String s = comboBox_2.getSelectedItem().toString();
-				a.setProyecto(Proyecto.saberID(s));
-				String s2 = comboBox_3.getSelectedItem().toString();
-				a.setAsignatura(Asignatura.saberID(s2));
-				a.setValidada(true);
-				ValidarActividadControlador.goToListaSinValidar();
 			}
 		});
 		
@@ -446,7 +477,7 @@ public class ValidarActividad implements OpenableWindow {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Window.open(new ValidarActividad(null));
+					Window.open(new VerActividad(null));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
