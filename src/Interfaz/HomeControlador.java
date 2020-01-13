@@ -17,7 +17,7 @@ public class HomeControlador {
 	}
 	
 	public static void goToValidarActividad() {
-		if(!Login.usuario.getRol().getNombre().equals("Gestor")){
+		if(Login.usuario.getRol().getNombre().equalsIgnoreCase("Gestor")){
 			Window.open(new ListaSinValidar());
 		}
 	}
@@ -26,6 +26,10 @@ public class HomeControlador {
 		if(!Login.usuario.getRol().getNombre().equals("ONG")){
 			Window.open(new Matches());
 		}
+	}
+	
+	public static void goToBusqueda() {
+			Window.open(new Buscar(null));
 	}
 	
 	public static void goToMisActividades() {
@@ -37,14 +41,18 @@ public class HomeControlador {
 		Window.open(new Home());
 	}
 	
-	public static void goToGestionar() {
+	public static void goToGestionar(int a) {
 		if(Login.usuario.getRol().getNombre().equalsIgnoreCase("Gestor")) {
-			Window.open(new Gestionar());
+			Window.open(new Gestionar(a));
 		}
 	}
 	
 	
 	public static void goToHome() {
 		Window.open(new Home());
+	}
+	
+	public static void goToNuevaNoticia() {
+		Window.open(new NuevaNoticia());
 	}
 }

@@ -31,7 +31,26 @@ public class Subcategoria {
 		this.subcategoria = (String)tupla[0];
 	}
 	
+	public Subcategoria(String id, int x) {
+		BD miBD = new BD(BD_SERVER,BD_NAME);			
+		  
+		miBD.Insert("INSERT INTO Subcategorias VALUES('" + id + "');");
+		this.subcategoria = id;
+	}
+	
+	public void delete() {
+		BD miBD = new BD(BD_SERVER,BD_NAME);			
+		  
+		miBD.Delete("DELETE FROM Subcategorias " + "WHERE Subcategoria='"+this.subcategoria+ "';");
+		this.subcategoria = null;
+	}
+	
 	public String getNombre() {
+		return this.subcategoria;
+	}
+	
+	@Override
+	public String toString() {
 		return this.subcategoria;
 	}
 }

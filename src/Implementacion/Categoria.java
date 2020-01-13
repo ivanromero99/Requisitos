@@ -31,7 +31,26 @@ public class Categoria {
 		this.categoria = (String)tupla[0];
 	}
 	
+	public Categoria(String id, int x) {
+		BD miBD = new BD(BD_SERVER,BD_NAME);			
+		  
+		miBD.Insert("INSERT INTO Categorias VALUES('" + id + "');");
+		this.categoria = id;
+	}
+	
+	public void delete() {
+		BD miBD = new BD(BD_SERVER,BD_NAME);			
+		  
+		miBD.Delete("DELETE FROM Categorias " + "WHERE Categoria='"+this.categoria+ "';");
+		this.categoria = null;
+	}
+	
 	public String getNombre() {
+		return this.categoria;
+	}
+	
+	@Override
+	public String toString() {
 		return this.categoria;
 	}
 

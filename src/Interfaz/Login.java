@@ -39,7 +39,7 @@ public class Login implements OpenableWindow {
 		lblInicieSesinComo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 24));
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/Interfaz/Logos/LogoUma.png")));
+		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/Interfaz/Logos/LogoLogin.png")));
 		
 		JLabel lblOng = new JLabel("ONG");
 		lblOng.setHorizontalAlignment(SwingConstants.RIGHT);

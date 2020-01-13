@@ -25,6 +25,10 @@ public class Asignatura {
 		return lista;
 	}
 	
+	public int getID() {
+		return ID;
+	}
+
 	public Asignatura(int id) {
 		BD miBD = new BD(BD_SERVER,BD_NAME);			
 		  

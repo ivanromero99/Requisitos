@@ -44,10 +44,26 @@ public class Inscripcion {
 		BD miBD = new BD(BD_SERVER,BD_NAME);
 		ArrayList<Inscripcion> lista = new ArrayList<Inscripcion>(); 
 					
-		for(Object[] tupla: miBD.Select("SELECT ID_Usuario FROM Inscripcion WHERE ID_Actividad ='" + id_act +" ;"))
+		for(Object[] tupla: miBD.Select("SELECT * FROM Inscripcion WHERE ID_Actividad =" + id_act +" ;"))
 		{
 			String id_u = (String)tupla[0];
-			int id_ac = (Integer)tupla[1];
+			int id_ac = (int)tupla[1];
+			Inscripcion ins = new Inscripcion(id_u,id_ac);
+			lista.add(ins);
+		}
+		return lista;
+	}
+    
+    public static List<Inscripcion> ListaInscripciones()
+	{
+		// Retorna una lista con todos los obejtos de la clase almacenados en la base de datos
+		BD miBD = new BD(BD_SERVER,BD_NAME);
+		ArrayList<Inscripcion> lista = new ArrayList<Inscripcion>(); 
+					
+		for(Object[] tupla: miBD.Select("SELECT * FROM Inscripcion;"))
+		{
+			String id_u = (String)tupla[0];
+			int id_ac = (int)tupla[1];
 			Inscripcion ins = new Inscripcion(id_u,id_ac);
 			lista.add(ins);
 		}
@@ -60,17 +76,17 @@ public class Inscripcion {
 		Object[] tupla = miBD.Select("SELECT * FROM Inscripcion " + "WHERE ID_Usuario='"+id_usuario+ "' AND ID_Actividad = " + id_actividad + ";").get(0);
 		
 		this.ID_Usuario = (String)tupla[0];
-		this.ID_Actividad = (Integer)tupla[1];
+		this.ID_Actividad = (int)tupla[1];
 		this.confirmada = (Boolean) tupla[2];
 		this.terminada = (Boolean) tupla[3];
 		if(tupla[4]!=null) {
-			this.nota = (Integer) tupla[4];
+			this.nota = (int) tupla[4];
 		}
 		if(tupla[5]!=null) {
 			this.informe = (String) tupla[5];
 		}
 		if(tupla[6]!=null) {
-			this.horas = (Integer) tupla[6];
+			this.horas = (int) tupla[6];
 		}		
     }
     
@@ -181,10 +197,10 @@ public class Inscripcion {
     	BD miBD = new BD(BD_SERVER,BD_NAME);
     	if(!value) {
     		miBD.Update("UPDATE Inscripcion SET Confirmada = '" + 0 
-    			+ "' WHERE ID_Usuario ='"+ this.ID_Usuario + " AND WHERE ID_Actividad = "+ this.ID_Actividad +"';");
+    			+ "' WHERE ID_Usuario ='"+ this.ID_Usuario + "' AND ID_Actividad = "+ this.ID_Actividad +";");
     	} else {
     		miBD.Update("UPDATE Inscripcion SET Confirmada = '" + 1
-	    			+ "' WHERE ID_Usuario ='"+ this.ID_Usuario + " AND WHERE ID_Actividad = "+ this.ID_Actividad +"';");
+	    			+ "' WHERE ID_Usuario ='"+ this.ID_Usuario + "' AND ID_Actividad = "+ this.ID_Actividad +";");
     	}
     	
     	this.confirmada = value; 
@@ -203,13 +219,19 @@ public class Inscripcion {
     	BD miBD = new BD(BD_SERVER,BD_NAME);
     	if(!value) {
     		miBD.Update("UPDATE Inscripcion SET Terminada = '" + 0 
-    			+ "' WHERE ID_Usuario ='"+ this.ID_Usuario + " AND WHERE ID_Actividad = "+ this.ID_Actividad +"';");
+    			+ "' WHERE ID_Usuario ='"+ this.ID_Usuario + " AND WHERE ID_Actividad = "+ this.ID_Actividad +";");
     	} else {
     		miBD.Update("UPDATE Inscripcion SET Terminada = '" + 1
-	    			+ "' WHERE ID_Usuario ='"+ this.ID_Usuario + " AND WHERE ID_Actividad = "+ this.ID_Actividad +"';");
+	    			+ "' WHERE ID_Usuario ='"+ this.ID_Usuario + "' AND ID_Actividad = "+ this.ID_Actividad +";");
     	}
     	
     	this.terminada = value; 
+    }
+    
+    public void delete() {
+    	BD miBD = new BD(BD_SERVER,BD_NAME);
+    	
+    	miBD.Delete("DELETE FROM Inscripcion WHERE ID_Usuario ='"+ this.ID_Usuario + "' AND ID_Actividad = "+ this.ID_Actividad +";");
     }
 	
     

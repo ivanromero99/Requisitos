@@ -3,7 +3,9 @@ package Interfaz;
 import java.util.List;
 
 import Implementacion.Actividad;
+import Implementacion.Inscripcion;
 import Implementacion.Login;
+import Implementacion.Usuario;
 
 public class ListaControlador {
 	
@@ -17,4 +19,16 @@ public class ListaControlador {
 		return datos;
 	}
 	
+	public static String[][] generarDatosParaLaTabla2(List<Inscripcion> inscripciones) {
+		String[][] datos = new String[inscripciones.size()][3];
+		int aux = 1;
+		for(int i=0; i<inscripciones.size(); i++) {
+			Actividad actividad = new Actividad(inscripciones.get(i).getID_Actividad());
+			datos[i][0] = actividad.getNombre();
+			datos[i][1] = actividad.getid_ong();
+			datos[i][2] = "Solicitante " + aux;
+			aux += 1;
+		}
+		return datos;
+	}
 }

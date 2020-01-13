@@ -175,6 +175,32 @@ public class PerfilUsuario implements OpenableWindow {
 			rdbtnMaana.setSelected(true);
 		} 
 		
+		if(Implementacion.Login.usuario!=null) {
+			if(Implementacion.Login.usuario.getRol().getMat()) {
+				lblMatches.setEnabled(true);
+			} else {
+				lblMatches.setEnabled(false);
+			}
+			
+			if(Implementacion.Login.usuario.getRol().getValid()) {
+				lblValidarActividad.setEnabled(true);
+			} else {
+				lblValidarActividad.setEnabled(false);
+			}
+			
+			if(Implementacion.Login.usuario.getRol().getCalif()) {
+				lblCalificarActividad.setEnabled(true);
+			} else {
+				lblCalificarActividad.setEnabled(false);
+			}
+		} else {
+			lblCalificarActividad.setEnabled(false);
+			lblValidarActividad.setEnabled(false);
+			lblMatches.setEnabled(false);
+			lblMisActividades.setEnabled(false);
+			lblBusqueda.setEnabled(false);
+		}
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -325,6 +351,38 @@ public class PerfilUsuario implements OpenableWindow {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				HomeControlador.goToHome();
+			}
+		});
+		
+		lblMisActividades.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToMisActividades();
+			}
+		});
+		
+		lblMatches.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToMatches();
+			}
+		});
+		
+		lblValidarActividad.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToValidarActividad();
+			}
+		});
+		
+		lblBusqueda.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToBusqueda();
 			}
 		});
 	

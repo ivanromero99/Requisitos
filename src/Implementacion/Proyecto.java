@@ -38,6 +38,17 @@ public class Proyecto {
 		this.proyecto = (String)tupla[1];
 	}
 	
+	public Proyecto(String id, int x) {
+		BD miBD = new BD(BD_SERVER,BD_NAME);
+		
+		List<Proyecto> lista = this.ListaProyectos();
+		int valor = lista.size();
+		
+		miBD.Insert("INSERT INTO Proyectos VALUES(" + valor + ",'" + id + "');");
+		this.proyecto = id;
+		this.ID = valor;
+	}
+	
 	public String getNombre() {
 		return this.proyecto;
 	}

@@ -8,6 +8,10 @@ public class MisActividadesControlador {
 		Window.open(new NuevaActividad());
 	}
 	
+	public static void goToConfirmar() {
+		Window.open(new ValidarONG());
+	}
+	
 	public static void goToPerfil() {
 		if(!Login.usuario.getRol().getNombre().equals("ONG")){
 			Window.open(new PerfilUsuario());

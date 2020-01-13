@@ -18,6 +18,7 @@ import java.awt.EventQueue;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
 
 public class iDUMA implements OpenableWindow {
 	
@@ -27,7 +28,8 @@ public class iDUMA implements OpenableWindow {
 	
 	public iDUMA() {
 		panel = new JPanel();
-		panel.setForeground(Color.LIGHT_GRAY);
+		panel.setBackground(UIManager.getColor("Button.background"));
+		panel.setForeground(Color.WHITE);
 		
 		JLabel lblUsuario = new JLabel("Identificaci\u00F3n");
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 20));

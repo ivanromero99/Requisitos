@@ -29,20 +29,19 @@ import Implementacion.Login;
 import Implementacion.Subcategoria;
 import javax.swing.JTextArea;
 
-public class PerfilONG implements OpenableWindow {
+public class NuevaNoticia implements OpenableWindow {
 	
 	private JPanel panel;
 	private JTextField textField;
 	private JTextField textField_1;
 	private boolean turno;
-	private JTextField textField_2;
 	
-	public PerfilONG() {
+	public NuevaNoticia() {
 		panel = new JPanel();
 		panel.setForeground(Color.LIGHT_GRAY);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(PerfilONG.class.getResource("/Interfaz/Logos/LogoUma.png")));
+		lblNewLabel.setIcon(new ImageIcon(NuevaNoticia.class.getResource("/Interfaz/Logos/LogoUma.png")));
 		
 		JLabel lblInicio = new JLabel("Inicio");
 		lblInicio.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
@@ -68,34 +67,25 @@ public class PerfilONG implements OpenableWindow {
 		lblCalificarActividad.setForeground(Color.BLUE);
 		lblCalificarActividad.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
-		JLabel lblNoticias = new JLabel("MI INFORMACI\u00D3N");
+		JLabel lblNoticias = new JLabel("Nueva Noticia");
 		lblNoticias.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lblNoticias.setForeground(Color.RED);
 		
-		JLabel lblUsuario_1 = new JLabel("Usuario: ");
+		JLabel lblUsuario_1 = new JLabel("T\u00EDtulo: ");
 		lblUsuario_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
-		JLabel lblNombre = new JLabel("Nombre:");
+		JLabel lblNombre = new JLabel("Autor:");
 		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
-		JLabel lblApellidos = new JLabel("Web:");
-		lblApellidos.setFont(new Font("Tahoma", Font.BOLD, 16));
-		
-		JLabel lblEdad = new JLabel("Descripci\u00F3n:");
+		JLabel lblEdad = new JLabel("Cuerpo:");
 		lblEdad.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
-		JButton btnGuardar = new JButton("Guardar");
-		btnGuardar.setBackground(Color.BLUE);
-		btnGuardar.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnGuardar.setForeground(Color.WHITE);
-		
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton("Volver");
 		btnCancelar.setForeground(Color.WHITE);
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnCancelar.setBackground(Color.BLUE);
 		
 		textField = new JTextField();
-		textField.setEditable(false);
 		textField.setForeground(Color.BLACK);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField.setColumns(10);
@@ -105,19 +95,9 @@ public class PerfilONG implements OpenableWindow {
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField_1.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setForeground(Color.BLACK);
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField_2.setColumns(10);
-		
 		JTextArea textArea = new JTextArea();
 		textArea.setWrapStyleWord(true);
 		textArea.setLineWrap(true);
-		
-		textField.setText(Login.usuario.getID());
-		textField_1.setText(Login.usuario.getNombre());
-		textField_2.setText(Login.usuario.getWeb());
-		textArea.setText(Login.usuario.getDescripcion());
 		
 		if(Implementacion.Login.usuario!=null) {
 			if(Implementacion.Login.usuario.getRol().getMat()) {
@@ -145,9 +125,14 @@ public class PerfilONG implements OpenableWindow {
 			lblBusqueda.setEnabled(false);
 		}
 		
+		JButton btnSubirNoticia = new JButton("Subir Noticia");
+		btnSubirNoticia.setForeground(Color.WHITE);
+		btnSubirNoticia.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnSubirNoticia.setBackground(Color.BLUE);
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
@@ -157,7 +142,6 @@ public class PerfilONG implements OpenableWindow {
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(33)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblMatches)
 								.addGroup(gl_panel.createSequentialGroup()
 									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_panel.createSequentialGroup()
@@ -170,23 +154,21 @@ public class PerfilONG implements OpenableWindow {
 											.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 												.addComponent(lblUsuario_1)
 												.addComponent(lblNombre, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblApellidos)
 												.addComponent(lblEdad)))
 										.addComponent(lblCalificarActividad))
-									.addGap(21)
-									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-										.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
-										.addComponent(textField_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
-										.addComponent(textField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
-										.addComponent(textField_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE))))
-							.addGap(140)))
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addComponent(lblMatches))
+							.addGap(21)
+							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+								.addComponent(textField_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 7, Short.MAX_VALUE)
+								.addComponent(textField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 7, Short.MAX_VALUE)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(btnSubirNoticia, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
+									.addGap(29)
+									.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
+								.addComponent(textArea, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE))
+							.addGap(74)))
 					.addGap(91))
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-					.addContainerGap(778, Short.MAX_VALUE)
-					.addComponent(btnGuardar, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
-					.addGap(33)
-					.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-					.addGap(101))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -217,36 +199,31 @@ public class PerfilONG implements OpenableWindow {
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNombre, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-							.addGap(26)
+							.addGap(33)
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblApellidos, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-							.addGap(30)
-							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblEdad, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE))))
-					.addPreferredGap(ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnGuardar)
-						.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-					.addGap(30))
+								.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblEdad, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))))
+					.addGap(18)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnSubirNoticia, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(58, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
-		
-		btnGuardar.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				
-				PerfilONGControlador.guardarPerfil(textField_1.getText(), textField_2.getText(), textArea.getText());
-				HomeControlador.goToHome();
-			}
-		});
 		
 		btnCancelar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
+				HomeControlador.goToHome();
+			}
+		});
+		
+		btnSubirNoticia.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				NuevaNoticiaControlador.añadirNoticia(textField.getText(), textField_1.getText(), textArea.getText());
 				HomeControlador.goToHome();
 			}
 		});
@@ -298,7 +275,7 @@ public class PerfilONG implements OpenableWindow {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Window.open(new PerfilONG());
+					Window.open(new NuevaNoticia());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

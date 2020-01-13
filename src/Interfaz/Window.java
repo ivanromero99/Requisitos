@@ -17,7 +17,7 @@ public class Window {
 
 	public Window() {
 		frame = new JFrame();
-		frame.setTitle("TreceSoft");
+		frame.setTitle("PLATAFORMA DE COMPROMISO SOCIAL Y APRENDIZAJE-SERVICIO");
 		frame.setResizable(false);
 		/*
 		 * GridBagLayout gridBagLayout = new GridBagLayout();

@@ -29,6 +29,7 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 
 public class ListaSinValidar implements OpenableWindow {
 	
@@ -87,7 +88,7 @@ public class ListaSinValidar implements OpenableWindow {
 		String[] columnNames = {"Nombre", "Lugar", "Descripción"};
 		java.util.List<Actividad> actividades;
 		actividades = ListaSinValidarControlador.actividadesSinValidar();
-		String[][] datos = ListaControlador.generarDatosParaLaTabla(actividades);
+			String[][] datos = ListaControlador.generarDatosParaLaTabla(actividades);
 		
 		table = new JTable(datos, columnNames) {
 			private static final long serialVersionUID = 1L;
@@ -97,6 +98,9 @@ public class ListaSinValidar implements OpenableWindow {
 				return false;
 			}
 		};
+		table.setFont(new Font("Tahoma", Font.BOLD, 13));
+		table.setBackground(UIManager.getColor("Button.background"));
+		table.setShowGrid(false);
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -202,6 +206,38 @@ public class ListaSinValidar implements OpenableWindow {
 				super.mouseClicked(e);
 				int row = table.getSelectedRow();
 				ListaSinValidarControlador.goToValidarActividad(actividades.get(row));
+			}
+		});
+		
+		lblMisActividades.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToMisActividades();
+			}
+		});
+		
+		lblMatches.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToMatches();
+			}
+		});
+		
+		lblValidarActividad.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToValidarActividad();
+			}
+		});
+		
+		lblBusqueda.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToBusqueda();
 			}
 		});
 		

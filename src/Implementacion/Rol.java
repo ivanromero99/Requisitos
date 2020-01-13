@@ -13,6 +13,8 @@ public class Rol {
     private boolean inscribir;
     private boolean calificar;
     private boolean validar;
+    private boolean gestionar;
+    private boolean matches;
     
     
 	public static List<Rol> ListaRol()
@@ -38,29 +40,39 @@ public class Rol {
 		
         this.nombre = (String)tupla[0];
         if((boolean) tupla[1]) {
-        	this.seleccionar = false;
-        } else {
         	this.seleccionar = true;
+        } else {
+        	this.seleccionar = false;
         }
         if((boolean) tupla[2]) {
-        	this.inscribir = false;
-        } else {
         	this.inscribir = true;
+        } else {
+        	this.inscribir = false;
         }
         if((boolean) tupla[3]) {
-        	this.calificar = false;
-        } else {
         	this.calificar = true;
+        } else {
+        	this.calificar = false;
         }
         if((boolean) tupla[4]) {
-        	this.validar = false;
-        } else {
         	this.validar = true;
+        } else {
+        	this.validar = false;
+        }
+        if((boolean) tupla[5]) {
+        	this.gestionar = true;
+        } else {
+        	this.gestionar = false;
+        }
+        if((boolean) tupla[6]) {
+        	this.matches = true;
+        } else {
+        	this.matches = false;
         }
         
 	}
 	
-	 public Rol(String nombre, boolean selec, boolean insc, boolean calif,boolean valid)
+	 public Rol(String nombre, boolean selec, boolean insc, boolean calif,boolean valid, boolean gest, boolean mat)
 	    {
 			// Crea el objeto y lo inserta en la base de datos
 	    	BD miBD = new BD(BD_SERVER,BD_NAME);	
@@ -68,6 +80,8 @@ public class Rol {
 	    	int valInsc;
 	    	int valCalif;
 	    	int valValid;
+	    	int valGest;
+	    	int valMat;
 	    	
 	    	if(!selec) {
 	    		valSelec = 0;
@@ -89,14 +103,26 @@ public class Rol {
 	    	} else {
 	    		valValid = 1;
 	    	}
+	    	if(!gest) {
+	    		valGest = 0;
+	    	} else {
+	    		valGest = 1;
+	    	}
+	    	if(!mat) {
+	    		valMat = 0;
+	    	} else {
+	    		valMat = 1;
+	    	}
 	    	
 	    	
-	    	miBD.Insert("INSERT INTO Roles VALUES(" + "'" + nombre + ", " + valSelec + ", " + valInsc + ", " + valCalif + ", " + valValid + "');" );			
+	    	miBD.Insert("INSERT INTO Roles VALUES(" + "'" + nombre + ", " + valSelec + ", " + valInsc + ", " + valCalif + ", " + valValid + ", " + valGest + ", " + valMat + "');" );			
 	    	
 	    	this.nombre = nombre;
 	    	this.seleccionar = selec;
 	    	this.inscribir = insc;
-	    	this.validar = valid;	        
+	    	this.validar = valid;
+	    	this.gestionar = gest;
+	    	this.matches = mat;
 	    }
 	 
 	 public String getNombre() 
@@ -197,6 +223,16 @@ public class Rol {
 	    	}
 	    	
 	    	this.inscribir = value; 
+	    }
+	    
+	    public boolean getGest() 
+	    { 
+	    	return gestionar; 
+	    }
+	    
+	    public boolean getMat() 
+	    { 
+	    	return this.matches; 
 	    }
 	    
 	    

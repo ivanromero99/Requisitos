@@ -6,14 +6,17 @@ import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
 
 import Implementacion.Actividad;
+import Implementacion.BD;
 import Implementacion.Inscripcion;
 
 import javax.swing.GroupLayout.Alignment;
@@ -26,18 +29,20 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JList;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 
-public class MisActividades implements OpenableWindow {
+public class ValidarONG implements OpenableWindow {
 	
 	private JPanel panel;
+	private JTable table;
 	
-	public MisActividades() {
+	public ValidarONG() {
 		panel = new JPanel();
 		panel.setForeground(Color.LIGHT_GRAY);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(MisActividades.class.getResource("/Interfaz/Logos/LogoUma.png")));
+		lblNewLabel.setIcon(new ImageIcon(ValidarONG.class.getResource("/Interfaz/Logos/LogoUma.png")));
 		
 		JLabel lblInicio = new JLabel("Inicio");
 		lblInicio.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -53,7 +58,7 @@ public class MisActividades implements OpenableWindow {
 		
 		JLabel lblMisActividades = new JLabel("Mis actividades");
 		lblMisActividades.setForeground(Color.BLUE);
-		lblMisActividades.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
+		lblMisActividades.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
 		JLabel lblValidarActividad = new JLabel("Validar actividad");
 		lblValidarActividad.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -63,7 +68,7 @@ public class MisActividades implements OpenableWindow {
 		lblCalificarActividad.setForeground(Color.BLUE);
 		lblCalificarActividad.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
-		JLabel lblNoticias = new JLabel("MIS ACTIVIDADES");
+		JLabel lblNoticias = new JLabel("VALIDAR SOLICITUDES");
 		lblNoticias.setFont(new Font("Tahoma", Font.BOLD, 40));
 		lblNoticias.setForeground(Color.BLACK);
 		
@@ -76,81 +81,34 @@ public class MisActividades implements OpenableWindow {
 		lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
-		JList list = new JList();
-		list.setFont(new Font("Tahoma", Font.BOLD, 13));
-		list.setBackground(UIManager.getColor("Button.background"));
-		DefaultListModel modelo = new DefaultListModel();
+		JButton btnValidar = new JButton("Seleccionar");
+		btnValidar.setForeground(Color.BLUE);
+		btnValidar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnValidar.setBackground(Color.WHITE);
 		
-		JButton btnCrearActividad = new JButton("Crear Actividad");
-		btnCrearActividad.setBackground(Color.WHITE);
-		btnCrearActividad.setForeground(Color.BLUE);
-		btnCrearActividad.setFont(new Font("Tahoma", Font.BOLD, 14));
-		
-		JButton btnBorrar = new JButton("Borrar");
-		btnBorrar.setForeground(Color.BLUE);
-		btnBorrar.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnBorrar.setBackground(Color.WHITE);
-		
-		JButton btnEditar = new JButton("Editar");
-		btnEditar.setForeground(Color.BLUE);
-		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnEditar.setBackground(Color.WHITE);
-		
-		if(Implementacion.Login.usuario!=null) {
-			if(Implementacion.Login.usuario.getRol().getMat()) {
-				lblMatches.setEnabled(true);
-			} else {
-				lblMatches.setEnabled(false);
-			}
-			
-			if(Implementacion.Login.usuario.getRol().getValid()) {
-				lblValidarActividad.setEnabled(true);
-			} else {
-				lblValidarActividad.setEnabled(false);
-			}
-			
-			if(Implementacion.Login.usuario.getRol().getCalif()) {
-				lblCalificarActividad.setEnabled(true);
-			} else {
-				lblCalificarActividad.setEnabled(false);
-			}
-		} else {
-			lblCalificarActividad.setEnabled(false);
-			lblValidarActividad.setEnabled(false);
-			lblMatches.setEnabled(false);
-			lblMisActividades.setEnabled(false);
-			lblBusqueda.setEnabled(false);
-		}
-		
-		if(Implementacion.Login.usuario.getRol().getNombre().equals("ONG")) {
-			for(Actividad a : Actividad.ListaActividades()) {
-				if(a.getid_ong().equals(Implementacion.Login.usuario.getID())) {
-					modelo.addElement(a.getNombre());
-				}
-			}
-		} else {
-			for(Inscripcion i : Inscripcion.ListaInscripcionesUsuario(Implementacion.Login.usuario.getID())) {
-				modelo.addElement(new Actividad(i.getID_Actividad()));
+		String[] columnNames = {"Actividad", "ONG", "Solicitante"};
+		java.util.List<Inscripcion> inscripciones, aux;
+		inscripciones = new ArrayList<>();
+		aux = Inscripcion.ListaInscripciones();
+		for(Inscripcion i : aux) {
+			Actividad a = new Actividad(i.getID_Actividad());
+			if(!i.getConfirmada() && a.getid_ong().equals(Implementacion.Login.usuario.getID())) {
+				inscripciones.add(i);
 			}
 		}
+		String[][] datos = ListaControlador.generarDatosParaLaTabla2(inscripciones);
 		
-		list.setModel(modelo);
-		
-		if(!Implementacion.Login.usuario.getRol().getNombre().equals("ONG")) {
-			btnCrearActividad.setEnabled(false);
-			btnEditar.setEnabled(false);
-			btnBorrar.setEnabled(false);
-		}
-		
-		JButton btnConfirmarInscripciones = new JButton("Confirmar inscripciones");
-		btnConfirmarInscripciones.setForeground(Color.WHITE);
-		btnConfirmarInscripciones.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnConfirmarInscripciones.setBackground(Color.BLUE);
-		btnConfirmarInscripciones.setVisible(false);
-		
-		if(Implementacion.Login.usuario.getRol().getNombre().equalsIgnoreCase("ong")) {
-			btnConfirmarInscripciones.setVisible(true);
-		}
+		table = new JTable(datos, columnNames) {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		table.setFont(new Font("Tahoma", Font.BOLD, 13));
+		table.setBackground(UIManager.getColor("Button.background"));
+		table.setShowGrid(false);
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -167,28 +125,22 @@ public class MisActividades implements OpenableWindow {
 										.addComponent(lblIniciarSesin, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)))
 								.addGroup(gl_panel.createSequentialGroup()
 									.addGap(56)
-									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(list, GroupLayout.PREFERRED_SIZE, 706, GroupLayout.PREFERRED_SIZE)
-										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(lblNoticias)
-											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(btnCrearActividad, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(btnConfirmarInscripciones)
-											.addGap(33)
-											.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(btnBorrar, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE))))))
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblNoticias)
+										.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+											.addComponent(btnValidar, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+											.addComponent(table, GroupLayout.PREFERRED_SIZE, 738, GroupLayout.PREFERRED_SIZE))))))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(33)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblBusqueda)
 								.addComponent(lblMatches)
 								.addComponent(lblInicio, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblValidarActividad)
-								.addComponent(lblCalificarActividad)
-								.addComponent(lblMisActividades, GroupLayout.PREFERRED_SIZE, 172, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(28, Short.MAX_VALUE))
+								.addComponent(lblMisActividades, GroupLayout.PREFERRED_SIZE, 172, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+									.addComponent(lblValidarActividad, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(lblCalificarActividad, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -214,20 +166,12 @@ public class MisActividades implements OpenableWindow {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblUsuario)
 							.addGap(69)
-							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblNoticias)
-									.addGap(36))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(btnCrearActividad, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)))
-							.addComponent(list, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE)))
-					.addGap(26)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnBorrar)
-						.addComponent(btnEditar)
-						.addComponent(btnConfirmarInscripciones))
-					.addContainerGap(63, Short.MAX_VALUE))
+							.addComponent(lblNoticias)
+							.addGap(34)
+							.addComponent(table, GroupLayout.PREFERRED_SIZE, 319, GroupLayout.PREFERRED_SIZE)))
+					.addGap(30)
+					.addComponent(btnValidar)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		
@@ -264,6 +208,15 @@ public class MisActividades implements OpenableWindow {
 			}
 		});
 		
+		btnValidar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				int row = table.getSelectedRow();
+				ValidarONGControlador.abrir(inscripciones.get(row));
+			}
+		});
+		
 		lblMisActividades.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -296,24 +249,6 @@ public class MisActividades implements OpenableWindow {
 			}
 		});
 		
-		btnConfirmarInscripciones.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				super.mouseClicked(e);
-				MisActividadesControlador.goToConfirmar();
-			}
-		});
-		
-		btnCrearActividad.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				super.mouseClicked(e);
-				if(Implementacion.Login.usuario.getRol().getNombre().equals("ONG")) {
-					MisActividadesControlador.goToNuevaActividad();
-				}
-			}
-		});
-		
 		if(Implementacion.Login.usuario == null) {
 			lblUsuario.setVisible(false);
 			lblIniciarSesin.setVisible(true);
@@ -337,7 +272,7 @@ public class MisActividades implements OpenableWindow {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Window.open(new MisActividades());
+					Window.open(new ValidarONG());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

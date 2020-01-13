@@ -192,6 +192,32 @@ public class NuevaActividad implements OpenableWindow {
 		lblNewLabel_1.setForeground(Color.RED);
 		lblNewLabel_1.setVisible(false);
 		
+		if(Implementacion.Login.usuario!=null) {
+			if(Implementacion.Login.usuario.getRol().getMat()) {
+				lblMatches.setEnabled(true);
+			} else {
+				lblMatches.setEnabled(false);
+			}
+			
+			if(Implementacion.Login.usuario.getRol().getValid()) {
+				lblValidarActividad.setEnabled(true);
+			} else {
+				lblValidarActividad.setEnabled(false);
+			}
+			
+			if(Implementacion.Login.usuario.getRol().getCalif()) {
+				lblCalificarActividad.setEnabled(true);
+			} else {
+				lblCalificarActividad.setEnabled(false);
+			}
+		} else {
+			lblCalificarActividad.setEnabled(false);
+			lblValidarActividad.setEnabled(false);
+			lblMatches.setEnabled(false);
+			lblMisActividades.setEnabled(false);
+			lblBusqueda.setEnabled(false);
+		}
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
@@ -388,6 +414,38 @@ public class NuevaActividad implements OpenableWindow {
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
 				HomeControlador.goToPerfil();
+			}
+		});
+		
+		lblMisActividades.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToMisActividades();
+			}
+		});
+		
+		lblMatches.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToMatches();
+			}
+		});
+		
+		lblValidarActividad.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToValidarActividad();
+			}
+		});
+		
+		lblBusqueda.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToBusqueda();
 			}
 		});
 		

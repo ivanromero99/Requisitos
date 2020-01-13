@@ -190,6 +190,9 @@ public class VerActividad implements OpenableWindow {
 		btnValidar.setForeground(Color.WHITE);
 		btnValidar.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnValidar.setBackground(Color.BLUE);
+		if(Implementacion.Login.usuario.getRol().getNombre().equalsIgnoreCase("ong")) {
+			btnValidar.setVisible(false);
+		}
 		
 		textField_3 = new JTextField();
 		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -250,6 +253,32 @@ public class VerActividad implements OpenableWindow {
 		
 		if(a.getInvestigacion()) {
 			rdbtnInvestigacin.setSelected(true);
+		}
+		
+		if(Implementacion.Login.usuario!=null) {
+			if(Implementacion.Login.usuario.getRol().getMat()) {
+				lblMatches.setEnabled(true);
+			} else {
+				lblMatches.setEnabled(false);
+			}
+			
+			if(Implementacion.Login.usuario.getRol().getValid()) {
+				lblValidarActividad.setEnabled(true);
+			} else {
+				lblValidarActividad.setEnabled(false);
+			}
+			
+			if(Implementacion.Login.usuario.getRol().getCalif()) {
+				lblCalificarActividad.setEnabled(true);
+			} else {
+				lblCalificarActividad.setEnabled(false);
+			}
+		} else {
+			lblCalificarActividad.setEnabled(false);
+			lblValidarActividad.setEnabled(false);
+			lblMatches.setEnabled(false);
+			lblMisActividades.setEnabled(false);
+			lblBusqueda.setEnabled(false);
 		}
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
@@ -451,6 +480,38 @@ public class VerActividad implements OpenableWindow {
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
 				HomeControlador.goToPerfil();
+			}
+		});
+		
+		lblMisActividades.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToMisActividades();
+			}
+		});
+		
+		lblMatches.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToMatches();
+			}
+		});
+		
+		lblValidarActividad.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToValidarActividad();
+			}
+		});
+		
+		lblBusqueda.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToBusqueda();
 			}
 		});
 		

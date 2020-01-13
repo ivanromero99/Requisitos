@@ -9,10 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import Implementacion.Noticia;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -20,6 +24,9 @@ import java.awt.EventQueue;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import java.awt.SystemColor;
 
 public class Home implements OpenableWindow {
 	
@@ -62,8 +69,8 @@ public class Home implements OpenableWindow {
 		
 		JLabel lblIniciarSesin = new JLabel("Iniciar Sesi\u00F3n");
 		lblIniciarSesin.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblIniciarSesin.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblIniciarSesin.setForeground(Color.BLACK);
+		lblIniciarSesin.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblIniciarSesin.setForeground(Color.BLUE);
 		
 		JLabel lblUsuario = new JLabel("usuario");
 		lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -74,47 +81,151 @@ public class Home implements OpenableWindow {
 		lblCerrarSesin.setForeground(Color.RED);
 		lblCerrarSesin.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
+		JButton btnAadirNoticia = new JButton("A\u00F1adir noticia");
+		btnAadirNoticia.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnAadirNoticia.setForeground(Color.WHITE);
+		btnAadirNoticia.setBackground(Color.BLUE);
+		btnAadirNoticia.setVisible(false);
+		
 		JLabel lblGestin = new JLabel("Gesti\u00F3n");
 		lblGestin.setForeground(Color.BLUE);
 		lblGestin.setFont(new Font("Tahoma", Font.BOLD, 18));
+		
+		List<Noticia> lista = Noticia.DosNoticias();
+		Noticia noticia1 = lista.get(0);
+		Noticia noticia2 = lista.get(1);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_1.setForeground(Color.RED);
+		lblNewLabel_1.setText(noticia1.getTitulo());
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setFont(new Font("Tahoma", Font.BOLD, 15));
+		textArea.setBackground(UIManager.getColor("Button.background"));
+		textArea.setText(noticia1.getContenido());
+		textArea.setWrapStyleWord(true);
+		textArea.setLineWrap(true);
+		
+		JLabel label = new JLabel("");
+		label.setForeground(Color.RED);
+		label.setFont(new Font("Tahoma", Font.BOLD, 15));
+		label.setText(noticia2.getTitulo());
+		textArea.setEditable(false);
+		
+		JTextArea textArea_1 = new JTextArea();
+		textArea_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		textArea_1.setBackground(SystemColor.menu);
+		textArea_1.setWrapStyleWord(true);
+		textArea_1.setLineWrap(true);
+		textArea_1.setText(noticia2.getContenido());
+		textArea_1.setEditable(false);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		lblNewLabel_2.setText(noticia1.getAutor());
+		
+		JLabel label_1 = new JLabel("");
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		label_1.setText(noticia2.getAutor());
+		
+		lblMisActividades.setEnabled(true);
+		lblBusqueda.setEnabled(true);
+		
 		if(Implementacion.Login.usuario != null) {
 			if(!Implementacion.Login.usuario.getRol().getNombre().equalsIgnoreCase("Gestor")) {
 				lblGestin.setEnabled(false);
 			} else {
 				lblGestin.setEnabled(true);
+				btnAadirNoticia.setVisible(true);
 			}
 		} else {
 			lblGestin.setEnabled(false);
 		}
+		
+		if(Implementacion.Login.usuario!=null) {
+			if(Implementacion.Login.usuario.getRol().getMat()) {
+				lblMatches.setEnabled(true);
+			} else {
+				lblMatches.setEnabled(false);
+			}
+			
+			if(Implementacion.Login.usuario.getRol().getValid()) {
+				lblValidarActividad.setEnabled(true);
+			} else {
+				lblValidarActividad.setEnabled(false);
+			}
+			
+			if(Implementacion.Login.usuario.getRol().getCalif()) {
+				lblCalificarActividad.setEnabled(true);
+			} else {
+				lblCalificarActividad.setEnabled(false);
+			}
+		} else {
+			lblCalificarActividad.setEnabled(false);
+			lblValidarActividad.setEnabled(false);
+			lblMatches.setEnabled(false);
+			lblMisActividades.setEnabled(false);
+			lblBusqueda.setEnabled(false);
+		}
+		
+		
 				
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addComponent(lblNewLabel)
 					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(56)
-							.addComponent(lblNoticias)
-							.addContainerGap(659, Short.MAX_VALUE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(631)
-							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+							.addGroup(gl_panel.createSequentialGroup()
+								.addGap(56)
+								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+									.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 791, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 493, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblNoticias)
+									.addComponent(label, GroupLayout.PREFERRED_SIZE, 493, GroupLayout.PREFERRED_SIZE)
+									.addComponent(textArea_1, GroupLayout.PREFERRED_SIZE, 791, GroupLayout.PREFERRED_SIZE))
+								.addContainerGap(72, Short.MAX_VALUE))
+							.addGroup(gl_panel.createSequentialGroup()
+								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(lblUsuario, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblIniciarSesin, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblCerrarSesin, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-							.addGap(28))))
+								.addContainerGap())
+							.addGroup(gl_panel.createSequentialGroup()
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(lblIniciarSesin, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+								.addContainerGap()))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblCerrarSesin, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())))
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(33)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblGestin, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblBusqueda)
-						.addComponent(lblMatches)
-						.addComponent(lblMisActividades)
-						.addComponent(lblValidarActividad)
-						.addComponent(lblCalificarActividad)
-						.addComponent(lblInicio, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(957, Short.MAX_VALUE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(lblMatches)
+							.addPreferredGap(ComponentPlacement.RELATED, 629, Short.MAX_VALUE)
+							.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 273, GroupLayout.PREFERRED_SIZE)
+							.addGap(139))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(lblGestin, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 533, Short.MAX_VALUE)
+							.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 295, GroupLayout.PREFERRED_SIZE)
+							.addGap(129))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblBusqueda)
+								.addComponent(lblMisActividades)
+								.addComponent(lblValidarActividad)
+								.addComponent(lblCalificarActividad)
+								.addComponent(lblInicio, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
+							.addContainerGap(957, Short.MAX_VALUE))))
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap(813, Short.MAX_VALUE)
+					.addComponent(btnAadirNoticia)
+					.addGap(226))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -142,10 +253,27 @@ public class Home implements OpenableWindow {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblCerrarSesin, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 							.addGap(45)
-							.addComponent(lblNoticias)))
-					.addGap(28)
-					.addComponent(lblGestin, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(86, Short.MAX_VALUE))
+							.addComponent(lblNoticias)
+							.addGap(37)
+							.addComponent(lblNewLabel_1)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblNewLabel_2)
+							.addGap(48)
+							.addComponent(label, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(textArea_1, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)))
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(28)
+							.addComponent(lblGestin, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(18)
+							.addComponent(label_1)))
+					.addGap(13)
+					.addComponent(btnAadirNoticia)
+					.addContainerGap(48, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		
@@ -176,6 +304,14 @@ public class Home implements OpenableWindow {
 			}
 		});
 		
+		lblCerrarSesin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToHomeCerrarSesion();
+			}
+		});
+		
 		lblMisActividades.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -191,13 +327,6 @@ public class Home implements OpenableWindow {
 				HomeControlador.goToMatches();
 			}
 		});
-		lblCerrarSesin.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				super.mouseClicked(e);
-				HomeControlador.goToHomeCerrarSesion();
-			}
-		});
 		
 		lblValidarActividad.addMouseListener(new MouseAdapter() {
 			@Override
@@ -211,7 +340,23 @@ public class Home implements OpenableWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				HomeControlador.goToGestionar();
+				HomeControlador.goToGestionar(7);
+			}
+		});
+		
+		lblBusqueda.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToBusqueda();
+			}
+		});
+		
+		btnAadirNoticia.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				HomeControlador.goToNuevaNoticia();
 			}
 		});
 	}

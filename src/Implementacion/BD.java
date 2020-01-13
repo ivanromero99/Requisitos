@@ -18,7 +18,7 @@ public class BD
 			ds.setPortNumber(1433); 
 			ds.setDatabaseName(databaseName);
 			con = ds.getConnection();
-			System.out.println("Conexion con exito a la BD");
+			//System.out.println("Conexion con exito a la BD");
 		}
 		catch (SQLException ex)
 		{
